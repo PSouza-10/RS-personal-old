@@ -17,7 +17,8 @@
   "scripts": {
     "server": "yarn workspace backend start",
     "web": "yarn workspace web start",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""  
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "build-web" : "yarn workspace web build"  
   },
   "repository": "https://github.com/PSouza-10/RS-personal",
   "author": "Psouza-10 <paulosouza300272@gmail.com>",
