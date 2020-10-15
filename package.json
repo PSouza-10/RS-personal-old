@@ -1,0 +1,25 @@
+{
+  "name": "rs-personal",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "workspaces":{
+    "packages": [
+      "packages/*"  
+
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "scripts": {
+    "server": "yarn workspace backend start",
+    "web": "yarn workspace web start",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""  
+  },
+  "repository": "https://github.com/PSouza-10/RS-personal",
+  "author": "Psouza-10 <paulosouza300272@gmail.com>",
+  "license": "MIT"
+}
