@@ -1,8 +1,13 @@
 import React from 'react'
-import {Call, Container, Image} from './styles'
+import {Call, Container, Image, AppleIcon, AndroidIcon} from './styles'
 import {trainer} from '../image'
+import useDetectPlatform from '../../hooks/useDetectPlatform'
 
 export  function Hero() {
+    const device = useDetectPlatform()
+    const icon = device === 'Apple' ? <AppleIcon/> : <AndroidIcon/>
+    const appLink =  device === 'Apple' ? 'https://www.apple.com/app-store/': 'https://play.google.com/store'
+    
     return (
         <Container >
             <Image src={trainer} alt="dssd"/>
@@ -14,7 +19,7 @@ export  function Hero() {
 
                 </p>
                 <span>
-                    <button>Baixe o aplicativo</button>
+                    <a href={appLink}> <button> {icon}Baixe o aplicativo</button></a>
                     <button>Conheça o Personal</button>
                 </span>
             </Call>

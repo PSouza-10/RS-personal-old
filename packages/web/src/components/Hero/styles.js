@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import { FaAppStore, FaGooglePlay } from 'react-icons/fa'
 export const Container = styled.div`
   width: 100%;
   height: 65vh;
@@ -46,6 +46,10 @@ export const Call = styled.div`
     color: ${({ theme: { colors } }) => colors.primary};
     border: 2px solid ${({ theme: { colors } }) => colors.primary};
     transition: background-color 0.3s ease, color 0.3s ease;
+
+    display: flex;
+    align-items: center;
+
     &:focus {
       background-color: ${({ theme: { colors } }) => colors.primary};
       color: #fff;
@@ -53,4 +57,17 @@ export const Call = styled.div`
       box-shadow: 0 0 10px ${({ theme: { colors } }) => colors.primary + '80'};
     }
   }
+`
+
+export const AppleIcon = styled(FaAppStore)`
+  height: 24px;
+  width: 24px;
+  margin-right: 5px;
+  transform: translateY(-3%);
+`
+
+export const AndroidIcon = styled(FaGooglePlay)`
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
 `
