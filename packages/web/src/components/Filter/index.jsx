@@ -30,7 +30,7 @@ export function Filter() {
   const handleCollapse = () => setCollapse(!collapseOpen)
   const { colors} = useContext(ThemeContext)
   return (
-    <Container direction='column' padding="0 10px" bg={colors.bg} align='stretch' justify='start' CSS={css`position:sticky; top: 50px; z-index: 2; border-radius: 0;`}>
+    <Container direction='column' padding="0 10px" bg={colors.bg} align='stretch' justify='start' CSS={css`position:sticky; top: 50px; z-index: 2; border-radius: 0;box-shadow: 0 0 2px rgba(0,0,0,0.2);`}>
       <Search handleCollapse={handleCollapse} collapseOpen={collapseOpen} />
       <Collapse
         open={collapseOpen}

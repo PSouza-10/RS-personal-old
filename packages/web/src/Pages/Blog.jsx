@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import posts from '../services/assets/placeholder/posts'
+import posts from '../placeholder/posts'
 import { Filter, Post } from '../components'
 
 export const Container = styled.div`

@@ -5,7 +5,7 @@ const returnTheme = (darkMode = false) => {
     bg: '#ffffff',
     bgContrast: '#fafafa',
     fg: '#1e1e24',
-    detail: '#e5e5e5'
+    detail: '#f9f9f9'
   }
   const darkColors = {
     primary: '#ea8b13',
@@ -17,6 +17,7 @@ const returnTheme = (darkMode = false) => {
   }
 
   return {
+    isDark: darkMode,
     colors: darkMode === true ? darkColors : lightColors,
     breakpoints: {
       xs: '0px',

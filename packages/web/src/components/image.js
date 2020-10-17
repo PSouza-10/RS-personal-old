@@ -1,1 +1,1 @@
-export * from '../services/assets'
+export * from '../assets'

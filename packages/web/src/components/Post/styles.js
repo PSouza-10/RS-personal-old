@@ -13,6 +13,7 @@ export const Container = styled.div`
   box-shadow: 0 0 4px #0003;
   margin: 0 10px;
   margin-top: 15px;
+  overflow: hidden;
 `
 
 export const PostTitle = styled.header`
@@ -39,12 +40,13 @@ export const PostInfo = styled.div`
   justify-content: flex-start;
   padding: 6px 10px;
   font-weight: 560;
+  font-size: 1.8rem;
 `
 
 export const PostSubtitle = styled.p`
   text-align: justify;
   padding: 12px 16px;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
 `
 export const Avatar = styled.img`
   border-radius: 10em;

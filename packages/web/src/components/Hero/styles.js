@@ -26,7 +26,7 @@ export const Call = styled.div`
   }
 
   p {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     text-align: center;
     color: ${({ theme: { colors } }) => colors.fg};
   }

@@ -45,10 +45,10 @@ export const SearchInput = styled.input`
   border: none;
   border-bottom: 1px solid #5555;
   padding: 6px 14px;
-  background-color: inherit;
+  background-color: ${({ theme: { colors } }) => colors.bg};
   flex: 0.9;
   color: #5555;
-  font-size: 1.6rem;
+  font-size: 2rem;
   ::placeholder {
     color: #5555;
   }
@@ -58,7 +58,7 @@ export const SearchInput = styled.input`
     ::placeholder {
       color: ${({ theme: { colors } }) => colors.primary};
     }
-    color: ${({ theme: { colors } }) => colors.primary};
+    color: ${({ theme: { colors } }) => colors.fg};
   }
 `
 export const Categorie = styled.span`

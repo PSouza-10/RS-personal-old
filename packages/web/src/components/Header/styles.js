@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 import { MdBrightnessMedium } from 'react-icons/md'
 import { IoMdArrowRoundBack } from 'react-icons/io'
 import { Link } from 'react-router-dom'
+import { Logo80 } from '../image'
 
 export const Container = styled.div`
   display: flex;
@@ -14,10 +15,8 @@ export const Container = styled.div`
   position: sticky;
   top: 0;
   z-index: 10;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   p {
-    font-size: 2.2rem;
-    font-weight: 600;
-    flex: 0.9;
   }
 
   @media (min-width: 576px) {
@@ -25,6 +24,14 @@ export const Container = styled.div`
       flex: initial;
     }
   }
+`
+
+export const HeaderBrand = styled.span`
+  font-size: 2.2rem;
+  font-weight: 600;
+  flex: 0.9;
+  display: flex;
+  align-items: center;
 `
 
 export const ToggleDarkMode = styled(MdBrightnessMedium)`
@@ -93,24 +100,9 @@ export const MenuContainer = styled.div`
     justify-content: flex-start;
     width: 100%;
     margin-top: 25px;
+    background-color: ${({ theme }) => theme.colors.bg};
   }
 
-  ul > li {
-    width: 100%;
-    padding: 10px 0px;
-    text-align: center;
-    display: block;
-    cursor: pointer;
-    font-size: 1.8rem;
-  }
-
-  li:active {
-    background-color: rgba(500, 500, 500, 0.5);
-  }
-
-  li:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
   @media (min-width: 576px) {
     height: inherit;
     position: inherit;
@@ -128,36 +120,29 @@ export const MenuContainer = styled.div`
       justify-content: space-evenly;
       align-items: stretch;
     }
-    ul > li {
-      width: 100%;
-      padding: 15px 5px;
-      height: 100%;
-      text-align: center;
-      color: #fff;
-    }
   }
 `
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  color: inherit;
+  color: ${({ theme: { colors } }) => colors.primary};
   width: 100%;
   padding: 10px 0px;
   text-align: center;
   display: block;
   cursor: pointer;
-  font-size: 1.8rem;
-  &:active {
-    background-color: rgba(500, 500, 500, 0.5);
-  }
+  font-size: 2rem;
+  background-color: transparent;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    transition: background-color 0.1s ease;
+    background-color: ${({ theme: { isDark } }) =>
+      isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0, 0, 0, 0.1)'};
   }
   @media (min-width: 576px) {
     width: 100%;
-    padding: 15px 5px;
+    padding: 12px 6px;
     height: 100%;
     text-align: center;
-    color: #fff;
+    font-weight: 560;
   }
 `
 export const ArrowBack = styled(IoMdArrowRoundBack)`
@@ -171,4 +156,8 @@ export const BackLink = styled(Link)`
   color: inherit;
   display: flex;
   align-items: center;
+`
+export const Logo = styled(Logo80)`
+  height: 35px;
+  transform: rotate(-3deg) translateY(-6%);
 `

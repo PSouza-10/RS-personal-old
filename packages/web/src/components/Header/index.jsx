@@ -7,8 +7,11 @@ import {
   ToggleDarkMode,
   StyledLink,
   ArrowBack,
-  BackLink
+  BackLink,
+  Logo,
+  HeaderBrand
 } from './styles'
+
 
 export function Header({ setTheme, theme }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -28,7 +31,7 @@ export function Header({ setTheme, theme }) {
         articlePage ? <BackLink to='/blog'>
         <ArrowBack/> 
         </BackLink>
-        : <p>RS-Personal</p>
+        : <HeaderBrand><Logo/>Personal</HeaderBrand>
       }
       
       <MenuContainer open={menuOpen}>
@@ -44,7 +47,7 @@ export function Header({ setTheme, theme }) {
             Parceiros
           </StyledLink>
 
-          <StyledLink to='/sobre' onClick={handleMenu}>
+          <StyledLink to='/about' onClick={handleMenu}>
             Sobre
           </StyledLink>
         </ul>
