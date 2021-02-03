@@ -1,26 +1,21 @@
 import React from 'react'
-import {Call, Container, Image, AppleIcon, AndroidIcon} from './styles'
+import {Call, Container, Image} from './styles'
+import {Link} from 'react-router-dom'
 import {trainer} from '../image'
-import useDetectPlatform from '../../hooks/useDetectPlatform'
 
 export  function Hero() {
-    const device = useDetectPlatform()
-    const icon = device === 'Apple' ? <AppleIcon/> : <AndroidIcon/>
-    const appLink =  device === 'Apple' ? 'https://www.apple.com/app-store/': 'https://play.google.com/store'
-    
+  
     return (
         <Container >
             <Image src={trainer} alt="dssd"/>
             <Call>
-                <h1>Corpo, mente e alma sincronizados</h1>
+                <h2>Consultoria voltada ao aprendizado</h2>
                 <p>
-                    Sou formado em nutrição e educação física, e especializado em coaching. Hoje ofereço acompanhamento 
-                    como meio de alcançar o potencial máximo para o corpo, mente e alma.
+                   Sua saúde e estética vem das suas escolhas, mas pode ser que você não saiba quais escolhas fazer para ter resultados. Por isso o objetivo aqui é te ensinar, e auxiliar em seu crescimento pessoal.
 
                 </p>
                 <span>
-                    <a href={appLink}> <button> {icon}Baixe o aplicativo</button></a>
-                    <button>Conheça o Personal</button>
+                     <Link className="button" to="/main"> Quero aprender</Link>
                 </span>
             </Call>
         </Container>

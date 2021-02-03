@@ -61,6 +61,15 @@ export const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   align-self: flex-end;
-  padding: 12px 12px;
-  font-size: var(--title);
+  padding: 6px 12px;
+  margin: 13px 15px;
+  font-size: 1.9rem;
+  border-radius: 0.4em;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
 `

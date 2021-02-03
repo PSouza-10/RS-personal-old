@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import {
   Container,
   MenuIcon,
   MenuContainer,
-  ToggleDarkMode,
-  StyledLink,
+  PictureWrapper,
+  HeaderLink,
   ArrowBack,
   BackLink,
   Logo,
@@ -13,22 +14,23 @@ import {
 } from './styles'
 
 
-export function Header({ setTheme, theme }) {
+export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
-
+  const {_id,picture, name = '', isAdmin} = useSelector(state => state.Account)
   const lockYScroll = lock => {
     document.body.style.overflow = lock ? 'hidden' : 'initial'
-  }
-  const articlePage = useLocation().pathname.includes('/article/')
+  } 
+  const url = useLocation().pathname
+  const simpleHeader = url.includes('article/' ) || url.includes('content/' )
   const handleMenu = () => {
     lockYScroll(!menuOpen)
-    setMenuOpen(!menuOpen)
+    setMenuOpen(!menuOpen) 
   }
 
   return (
     <Container>
       {
-        articlePage ? <BackLink to='/blog'>
+        simpleHeader ? <BackLink to='/blog'>
         <ArrowBack/> 
         </BackLink>
         : <HeaderBrand><Logo/>Personal</HeaderBrand>
@@ -36,28 +38,33 @@ export function Header({ setTheme, theme }) {
       
       <MenuContainer open={menuOpen}>
         <ul>
-          <StyledLink to='/' onClick={handleMenu}>
+          <HeaderLink to='/' onClick={handleMenu}>
             Home
-          </StyledLink>
-          <StyledLink to='/blog' onClick={handleMenu}>
+          </HeaderLink>
+          <HeaderLink to='/blog' onClick={handleMenu}>
             Blog
-          </StyledLink>
+          </HeaderLink>
 
-          <StyledLink to='/partners' onClick={handleMenu}>
+          <HeaderLink to='/partners' onClick={handleMenu}>
             Parceiros
-          </StyledLink>
+          </HeaderLink>
 
-          <StyledLink to='/about' onClick={handleMenu}>
+          <HeaderLink to='/about' onClick={handleMenu}>
             Sobre
-          </StyledLink>
+          </HeaderLink>
+          {
+            isAdmin && 
+          <HeaderLink to='/workshop' onClick={handleMenu}>
+            Painel
+          </HeaderLink>
+
+          }
         </ul>
       </MenuContainer>
-      <ToggleDarkMode
-        onClick={() => {
-          setTheme(!theme)
-          localStorage.setItem('theme', !theme)
-        }}
-      />
+      {
+        _id && 
+      <Account image={picture} name={name} />
+      }
       <MenuIcon
         open={menuOpen}
         onClick={handleMenu}>
@@ -66,5 +73,14 @@ export function Header({ setTheme, theme }) {
         <div className='three'></div>
       </MenuIcon>
     </Container>
+  )
+}
+
+const Account = ({image,name}) => {
+
+  return (
+    <PictureWrapper>
+      <img src={image} alt={name}/>
+    </PictureWrapper>
   )
 }

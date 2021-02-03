@@ -1,8 +1,10 @@
 const router = require('express').Router()
-const sessionRoutes = require('./sessionRoutes')
-const productRoutes = require('./productRoutes')
+const contentRoutes = require('./contentRoutes')
+const userRoutes = require('./userRoutes')
+const adminRoutes = require('./adminRoutes')
+const auth = require('../middleware/auth')
+router.use('/workshop', auth, contentRoutes)
+router.use('/account', userRoutes)
+router.use('/admin', auth, adminRoutes)
 
-router.use('/user', sessionRoutes)
-router.get('/', (req, res) => { return res.send("Ola Mundo") })
-router.use('/product', productRoutes)
 module.exports = router
