@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from 'propstyledui'
-import {ArticleRenderer} from '../components'
+import {ArticleRenderer} from '../../components'
 
 export function Article() {
   

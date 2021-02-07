@@ -1,6 +1,7 @@
 import { AccountActions } from '../actions'
 const initialState = {
   user: {
+    _id: '',
     name: '',
     picture: '',
     isAdmin: false

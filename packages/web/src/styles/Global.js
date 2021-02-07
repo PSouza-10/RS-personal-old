@@ -18,7 +18,13 @@ export default createGlobalStyle`
         caret-color: ${({ theme }) => theme.colors.primary};
         
     }
-
+    :root {
+      --primary : ${({ theme: { colors } }) => colors.primary};
+      --error : #e22;
+      --success : #4c7;
+      --bgContrast :  ${({ theme: { colors } }) => colors.bgContrast};
+      --white-fade: #fff7;
+    }
     body,.root {
         height: 100%;
         max-width: 100vw;
@@ -42,13 +48,11 @@ export default createGlobalStyle`
     a{
       text-decoration: none;
       color: white;
-      font-size: 1.1rem;
+      font-size: inherit;
     }
-    a.button{
-      padding: 8px 12px;
-   
-      font-weight: 600;
-      border-radius: 0.4em;
+    .button{
+      font-weight: 500;
+      padding: 0 0.3em;
       background-color: inherit;
       color: ${({ theme: { colors } }) => colors.primary};
       border: 2px solid ${({ theme: { colors } }) => colors.primary};
@@ -56,21 +60,26 @@ export default createGlobalStyle`
       cursor: pointer;
       display: flex;
       align-items: center;
-      &:hover {
+      font-size:inherit;
+      &:hover,&:focus {
         background-color: ${({ theme: { colors } }) => colors.primary};
         color: #fff;
       }
       &:focus {
         background-color: ${({ theme: { colors } }) => colors.primary};
         color: #fff;
-        border: 2px solid ${({ theme: { colors } }) => colors.primary};
-        box-shadow: 0 0 10px 8px ${({ theme: { colors } }) =>
-          colors.primary + '80'};
+        
+        box-shadow: 0 0 6px 4px ${({ theme: { colors } }) =>
+          colors.primary + '40'};
       }
     }
-    a.inline{
+    .inline{
       color: var(--primary);
-      font-size: 1rem;
+      font-size: inherit;
+      &:hover{
+        text-decoration: underline;
+        
+      }
     }
     html {
         font-size: 110%;

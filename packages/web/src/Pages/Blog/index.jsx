@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import posts from '../placeholder/posts'
-import { Filter, Post } from '../components'
+import posts from '../../placeholder/posts'
+import { Filter, Post } from '../../components'
 
 export const Container = styled.div`
   display: flex;

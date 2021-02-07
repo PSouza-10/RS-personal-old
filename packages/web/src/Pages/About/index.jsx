@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Container } from 'propstyledui'
-import { FormField, DateField } from '../components'
-import { ContainerCSS } from './generalStyle'
+import { FormField, DateField } from '../../components'
+import { ContainerCSS } from '../generalStyle'
 import { css } from 'styled-components'
 
 
@@ -31,5 +31,5 @@ return <Container CSS={css`
   </h1>
       <FormField type="text" onChange={handleForm} value={formData.name} name="name" label="Nome"/>
       <DateField value={formData.date} label="Alguma data" onChange={(val) => handleForm({target: {name: 'date', value : val}})}/>
-  </Container>
+  </Container> 
 }

@@ -69,6 +69,15 @@ export const MenuContainer = styled.div`
     margin-top: 25px;
     background-color: ${({ theme }) => theme.colors.bg};
   }
+  .header-account {
+    font-size: 1.3rem;
+  }
+  .header-separator {
+    height: 2px;
+    margin: 6px 0;
+    width: 100%;
+    background: var(--white-fade);
+  }
 `
 export const HeaderLink = styled(Link)`
   text-decoration: none;
@@ -78,7 +87,7 @@ export const HeaderLink = styled(Link)`
   text-align: center;
   display: block;
   cursor: pointer;
-
+  font-size: 1.3rem;
   background-color: transparent;
   &:hover {
     transition: background-color 0.1s ease;
@@ -137,21 +146,41 @@ export const Container = styled.div`
   top: 0;
   z-index: 10;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-
+  .account {
+    display: none;
+  }
+  .inline {
+    margin-right: 10px;
+  }
+  .inline::before {
+    content: '';
+    cursor: initial;
+    border-left: 2px solid ${({ theme }) => theme.colors.primary};
+    margin: 0 10px;
+  }
   @media (min-width: 768px) {
     ${MenuIcon} {
       display: none;
     }
+    .account {
+      display: initial;
+      order: 3;
+    }
+    ${HeaderBrand} {
+      order: 1;
+    }
     ${MenuContainer} {
       height: inherit;
-      position: inherit;
+      max-width: 500px;
+      position: static;
       justify-content: center;
       align-items: stretch;
       transition: none;
       flex: 0.8;
-      max-width: 400px;
+      order: 2;
       flex-direction: row;
       display: block;
+      overflow: visible;
       ul {
         margin: 0;
         flex-direction: row;
@@ -159,6 +188,12 @@ export const Container = styled.div`
         justify-content: space-evenly;
         align-items: stretch;
         margin-right: 12px;
+      }
+      .header-account {
+        display: none;
+      }
+      .header-separator {
+        display: none;
       }
     }
     ${HeaderLink} {

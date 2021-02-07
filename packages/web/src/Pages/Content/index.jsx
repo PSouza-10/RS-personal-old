@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from 'propstyledui'
-import {} from '../components'
+import {} from '../../components'
 
 export function Content() {
   
