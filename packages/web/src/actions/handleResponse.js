@@ -3,13 +3,15 @@ export default function handleResponse(
   messageHandler
 ) {
   if (status.toString().charAt(0) === '2') {
-    messageHandler && messageHandler()
+    messageHandler && messageHandler(data)
     return data
   } else {
     messageHandler && messageHandler(data._id, data.msg)
     return {
       type: 'ERROR',
-      info: data
+      info: {
+        msg: data.t
+      }
     }
   }
 }

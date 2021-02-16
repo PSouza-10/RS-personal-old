@@ -1,16 +1,7 @@
-const LogController = require('../controllers/Logs')
-
 class AppError {
-  constructor(ERROR_ID, message, request = {}) {
+  constructor(ERROR_ID, message) {
     this._id = ERROR_ID
     this.msg = message
-
-    if (request) {
-      LogController.logError({
-        ERROR_ID,
-        request
-      })
-    }
   }
 }
 

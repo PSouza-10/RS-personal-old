@@ -1,5 +1,4 @@
 import React from 'react'
-import { Container } from './styles'
 import Login from './Login'
 import Register from './Register'
 

@@ -3,7 +3,9 @@ const regEx = {
   nospace: '\\S+$',
   upper: '.*[A-Z]',
   lower: '.*[a-z]',
-  digits: '.*[0-9]'
+  digits: '.*[0-9]',
+  // email: '.+@+.+\\.+.'
+  email: '.+@+.+\\.+.'
 }
 
 const evaluateWithRegEx = (val, params) => {
@@ -15,6 +17,7 @@ const evaluateWithRegEx = (val, params) => {
   for (let term in regEx) {
     if (paramsArr.includes(term)) {
       let isValid = new RegExp(`(?=${regEx[term]})`).test(val)
+      console.log(isValid)
       if (!isValid) validation.isValid = false
       validation.stringHas[`${term}`] = isValid
     }
@@ -25,7 +28,7 @@ const evaluateWithRegEx = (val, params) => {
 
 export default function handleValidate(
   value = '',
-  { validIf = '', min = 0, max = 1 }
+  { validIf = '', min = 0, max = 0 }
 ) {
   const type = typeof value
   if (type === 'string') {
@@ -34,14 +37,20 @@ export default function handleValidate(
       containsSpecified = evaluateWithRegEx(value, validIf)
     }
     const lenMatch = value.length >= min && value.length <= max
-    return {
-      isValid: containsSpecified.isValid && lenMatch,
+    let validation = {
+      isValid:
+        containsSpecified.isValid && (lenMatch || min === 0 || max === 0),
       stringHas: {
-        ...containsSpecified.stringHas,
-        min: value.length >= min,
-        max: value.length <= max
+        ...containsSpecified.stringHas
       }
     }
+    if (min !== 0) {
+      validation.stringHas.min = value.length >= min
+    }
+    if (max !== 0) {
+      validation.stringHas.max = value.length <= max
+    }
+    return validation
   } else if (type === 'number') {
     return value >= min && value <= max
   }

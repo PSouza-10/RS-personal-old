@@ -1,4 +1,4 @@
-module.exports = (userName, link) => `
+module.exports = (userName, token) => `
 
 <div style="display: flex; flex-direction: column; width: 100%; height: 100%;">
 <span style="flex-basis: 30%; padding: 10%; display: flex; align-items: center;justify-content: center;">
@@ -32,7 +32,7 @@ c0.78,2.23,1.94,4.3,3.3,6.25c0.58,0.84,1.22,1.7,1.87,2.59c2.56,3.86,6.57,11.24,4
 </span>
 <span>
     <h1> Olá ${userName}, confirme seu email no link abaixo</h1>
-    <a src="${link}">Confirmar</a>
+    <a src="http://localhost:3000/confirm/${token}">Confirmar</a>
 </span>
 </div>
 

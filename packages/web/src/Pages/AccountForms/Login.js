@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
-    senha: ''
+    password: ''
   })
   const handleChange = ({ target: { value, name } }) => {
     setFormData({
@@ -19,24 +19,28 @@ const Login = () => {
   return (
     <Container>
       <LoginForm>
-        <Logo />
+        <Logo height='260px' width='180px' />
         <h2>Login</h2>
         <FormField
           name='email'
           type='email'
           label='E-Mail'
           autoFocus
+          validate={{
+            validIf: 'email'
+          }}
           value={formData.email}
           onChange={handleChange}
           icon={<IoMdMail />}
         />
         <FormField
-          name='senha'
+          name='password'
           type='password'
           label='Senha'
-          value={formData.senha}
+          value={formData.password}
           onChange={handleChange}
           icon={<IoMdKey />}
+          useVisibility
         />
         <span className='actions'>
           <p>

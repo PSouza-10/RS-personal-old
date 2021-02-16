@@ -52,12 +52,16 @@ const UserSchema = new Schema(
       },
       GENERAL: {
         type: [String],
-        default: ['COMMENT', 'VIEW', 'MESSAGE']
+        default: ['VIEW']
       },
       ADMIN: [String]
     },
 
     isAdmin: {
+      type: Boolean,
+      default: false
+    },
+    emailConfirmed: {
       type: Boolean,
       default: false
     }

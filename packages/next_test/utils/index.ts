@@ -1,0 +1,1 @@
+export {generateProfilePic} from './generateProfilePic'

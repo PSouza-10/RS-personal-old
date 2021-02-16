@@ -5,7 +5,6 @@ export default createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        /* font-family: 'Nunito Sans', sans-serif; */
         font-family: 'Titillium Web', sans-serif;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-tap-highlight-color: transparent;
@@ -25,7 +24,7 @@ export default createGlobalStyle`
       --bgContrast :  ${({ theme: { colors } }) => colors.bgContrast};
       --white-fade: #fff7;
     }
-    body,.root {
+    html,body,#root{
         height: 100%;
         max-width: 100vw;
        
@@ -59,7 +58,9 @@ export default createGlobalStyle`
       transition: background-color 0.3s ease, color 0.3s ease;
       cursor: pointer;
       display: flex;
+      text-align: center;
       align-items: center;
+      justify-content:center;
       font-size:inherit;
       &:hover,&:focus {
         background-color: ${({ theme: { colors } }) => colors.primary};

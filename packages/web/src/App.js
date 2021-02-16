@@ -9,9 +9,10 @@ import {
   Home,
   Content,
   AccountForms,
-  NotFound
+  NotFound,
+  ConfirmEmail
 } from './Pages'
-import { Header } from './components'
+import { Header, Loading } from './components'
 
 import GlobalStyle from './styles/Global'
 import { ThemeProvider } from 'styled-components'
@@ -20,10 +21,12 @@ import theme from './styles/Theme'
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <Loading />
       <Router>
         <GlobalStyle />
         <Switch>
           <Route exact path='/account/:form' component={AccountForms} />
+          <Route exact path='account/confirm/:token' confirm={ConfirmEmail} />
           <Routes />
         </Switch>
       </Router>
@@ -38,7 +41,6 @@ function Routes() {
       <Switch>
         <Route exact path='/article/:_id' component={Article} />
         <Route exact path='/content/:_id' component={Content} />
-
         <Route exact path='/about' component={About} />
         <Route exact path='/partners' component={Partners} />
         <Route exact path='/blog' component={Blog} />
