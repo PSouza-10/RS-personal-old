@@ -1,8 +1,0 @@
-export { Article } from './Article'
-export { Blog } from './Blog'
-export { Partners } from './Partners'
-export { About } from './About'
-export { Home } from './Home'
-export { Content } from './Content'
-export { AccountForms } from './AccountForms'
-export { NotFound } from './NotFound'

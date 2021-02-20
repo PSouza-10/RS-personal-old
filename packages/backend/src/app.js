@@ -29,6 +29,7 @@ class App {
         useNewUrlParser: true
       })
       .then(() => console.debug('MongoDB Conectado'))
+      .catch(() => console.error('Erro ao conectar com o MongoDB'))
   }
 
   routes() {

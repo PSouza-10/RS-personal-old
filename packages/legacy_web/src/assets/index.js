@@ -1,0 +1,6 @@
+export { default as trainer } from './trainer.jpg'
+export { default as athlete } from './athlete.jpg'
+export { default as nutricionist } from './nutricionist.jpg'
+export { default as motivation } from './motivation.jpg'
+export { default as Rogerio } from './Rogerio.jpg'
+export { ReactComponent as Logo80 } from './logo80x80px.svg'

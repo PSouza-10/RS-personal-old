@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
-  "workspaces":{
+  "workspaces": {
     "packages": [
-      "packages/*"  
-
+      "packages/*"
     ]
   },
   "husky": {
@@ -16,9 +15,9 @@
   },
   "scripts": {
     "server": "yarn workspace backend start",
-    "web": "yarn workspace web start",
+    "web": "yarn workspace web dev",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "build-web" : "yarn workspace web build"  
+    "build-web": "yarn workspace web build"
   },
   "repository": "https://github.com/PSouza-10/RS-personal",
   "author": "Psouza-10 <paulosouza300272@gmail.com>",
