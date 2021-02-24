@@ -1,5 +1,5 @@
-import { createGlobalStyle, css } from 'styled-components'
-import classes from './classes'
+import { createGlobalStyle, css } from "styled-components";
+import classes from "./classes";
 export default createGlobalStyle`
     *{
         margin: 0;
@@ -23,6 +23,10 @@ export default createGlobalStyle`
       --success : #4c7;
       --bgContrast :  ${({ theme: { colors } }) => colors.bgContrast};
       --white-fade: #fff7;
+      --bg: #222222;
+      --bgContrast: #333333;
+      --fg: #fafafa;
+      --detail: #181818;
     }
     html,body,#__next{
         height: 100%;
@@ -36,6 +40,7 @@ export default createGlobalStyle`
     body::-webkit-scrollbar {
       background-color: transparent;
       border-radius: 0.8em;
+      width: 12px;
     }
 
     body::-webkit-scrollbar-thumb {
@@ -98,4 +103,4 @@ export default createGlobalStyle`
    ${classes}
 
 
-`
+`;

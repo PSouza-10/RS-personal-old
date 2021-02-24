@@ -1,17 +1,15 @@
-import styled, { css } from 'styled-components'
-import { Logo } from '../../assets'
+import { MdHome } from "react-icons/md";
+import styled, { css } from "styled-components";
+import { Logo } from "../../assets";
 export const FormLogo = styled(Logo)`
-  ${({ height, width }) => css`
-    height: ${height};
-    width: ${width};
-  `}
   fill: var(--primary);
-  flex-shrink: 0;
+
+  flex: 1;
   align-self: center;
   transform: rotate(-3deg) translateY(-6%);
-`
+`;
 export const Banner = styled.div`
-  background-image: url('/login-img.jpg');
+  background-image: url("/login-img.jpg");
   background-size: cover;
   background-position: center;
   flex: 1 1;
@@ -23,7 +21,7 @@ export const Banner = styled.div`
     padding: 30px;
     color: white;
   }
-`
+`;
 export const LoginForm = styled.form`
   display: flex;
 
@@ -31,14 +29,23 @@ export const LoginForm = styled.form`
   padding: 0px 20px;
   flex: 1 0 40%;
   font-size: 1.2rem;
+  .form-logo-wrapper {
+    height: 30vh;
+    display: flex;
+    padding: 0 2vw;
+    padding-top: 3vh;
+    flex-direction: column;
+  }
+
   .input-container {
     margin-bottom: 20px;
   }
   h2 {
     text-align: center;
+    margin-top: auto;
   }
   .form-error {
-   
+    margin-top: auto;
   }
   p {
     color: white;
@@ -47,10 +54,10 @@ export const LoginForm = styled.form`
   }
   .actions {
     display: flex;
-
+    margin-bottom: auto;
     flex-direction: column;
   }
-`
+`;
 
 export const RegisterForm = styled.div`
   display: flex;
@@ -59,10 +66,10 @@ export const RegisterForm = styled.div`
 
   flex-direction: column;
   .form-logo-wrapper {
-    flex-basis: 30%;
+    height: 30vh;
     display: flex;
-    /* padding-top: 2vh; */
-    justify-content: center;
+    padding: 0 2vw;
+    padding-top: 3vh;
     flex-direction: column;
   }
   .form-error {
@@ -89,7 +96,7 @@ export const RegisterForm = styled.div`
       margin: auto 2vw;
     }
   }
-`
+`;
 export const Container = styled.div`
   display: flex;
   height: 100%;
@@ -117,6 +124,12 @@ export const Container = styled.div`
         padding: 4vh 0;
         .form-logo-wrapper {
           flex-basis: 50%;
+          height: 100%;
+          justify-content: center;
+          padding: 0 0;
+          svg {
+            flex: 0.6;
+          }
           border-right: 2px solid var(--primary);
         }
         .form-wrapper {
@@ -128,4 +141,17 @@ export const Container = styled.div`
       }
     }
   `}
-`
+`;
+
+export const HomeIcon = styled(MdHome)`
+  position: fixed;
+  height: 50px;
+  width: 50px;
+  top: 10px;
+  left: 10px;
+  fill: var(--primary);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--white-fade);
+  }
+`;
