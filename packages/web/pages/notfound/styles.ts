@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  ${ContainerCSS}
-
-  display:flex;
+  display: flex;
   flex-direction: column;
   @media (min-width: 768px) {
     margin: 0 5vw;
