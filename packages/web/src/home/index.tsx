@@ -3,7 +3,7 @@ import { Container, TrifectaWrapper } from "./_style";
 import { Hero } from "../../components";
 import Link from "next/link";
 import { IoBodyOutline } from "react-icons/io5";
-export function Home() {
+export default function Home() {
   return (
     <Container>
       <Hero />
