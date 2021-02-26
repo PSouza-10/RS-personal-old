@@ -3,6 +3,7 @@ import { Container, RegisterForm, FormLogo, HomeIcon } from "./_styles";
 import { FormField, FormError, Loading } from "../../components";
 import { IoMdKey, IoMdMail, IoMdPerson } from "react-icons/io";
 import Link from "next/link";
+import Head from "next/head";
 import Router from "next/router";
 import { useGlobalContext } from "../../Context";
 
@@ -41,6 +42,9 @@ const Register = () => {
   };
   return (
     <Container>
+      <Head>
+        <title>Rs-Personal - Cadastro</title>
+      </Head>
       <Link href="/">
         <HomeIcon />
       </Link>

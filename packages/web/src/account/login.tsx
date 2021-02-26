@@ -4,6 +4,7 @@ import { FormError, FormField, Loading } from "../../components";
 import { IoMdKey, IoMdMail } from "react-icons/io";
 import { useState } from "react";
 import Link from "next/link";
+import Head from "next/head";
 import { useGlobalContext } from "../../Context";
 import Router from "next/router";
 
@@ -38,6 +39,9 @@ const Login = () => {
   const buttonEnabled = isValid.email && isValid.password;
   return (
     <Container>
+      <Head>
+        <title>Rs-Personal - Login</title>
+      </Head>
       <Link href="/">
         <HomeIcon />
       </Link>

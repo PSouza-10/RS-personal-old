@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
   @media (min-width: 768px) {
     margin: 0 5vw;
   }

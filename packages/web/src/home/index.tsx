@@ -2,10 +2,14 @@ import React from "react";
 import { Container, TrifectaWrapper } from "./_style";
 import { Hero } from "../../components";
 import Link from "next/link";
+import Head from "next/head";
 import { IoBodyOutline } from "react-icons/io5";
 export default function Home() {
   return (
     <Container>
+      <Head>
+        <title>Rs-Personal - Home</title>
+      </Head>
       <Hero />
 
       <section className="explore">
