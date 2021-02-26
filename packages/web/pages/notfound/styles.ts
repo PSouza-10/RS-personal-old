@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-import { ContainerCSS } from '../generalStyle'
+import styled from "styled-components";
 
 export const Container = styled.div`
   ${ContainerCSS}
@@ -23,4 +22,4 @@ export const Container = styled.div`
 
     color: white;
   }
-`
+`;
