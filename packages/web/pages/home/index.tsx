@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, TrifectaWrapper } from "./style";
+import { Container, TrifectaWrapper } from "./_style";
 import { Hero } from "../../components";
 import Link from "next/link";
 import { IoBodyOutline } from "react-icons/io5";

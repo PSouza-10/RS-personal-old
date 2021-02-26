@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, RegisterForm, FormLogo, HomeIcon } from "./styles";
+import { Container, RegisterForm, FormLogo, HomeIcon } from "./_styles";
 import { FormField, FormError, Loading } from "../../components";
 import { IoMdKey, IoMdMail, IoMdPerson } from "react-icons/io";
 import Link from "next/link";
@@ -30,12 +30,12 @@ const Register = () => {
     });
   };
   const { email, name, password } = isValid;
-  const { data, actions } = useGlobalContext(state => state);
+  const { data, actions } = useGlobalContext((state) => state);
 
   const handleSubmit = (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
 
-    actions.register(formData, data => {
+    actions.register(formData, (data) => {
       Router.push("/");
     });
   };

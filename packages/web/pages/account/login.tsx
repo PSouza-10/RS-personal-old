@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, LoginForm, Banner, FormLogo, HomeIcon } from "./styles";
+import { Container, LoginForm, Banner, FormLogo, HomeIcon } from "./_styles";
 import { FormError, FormField, Loading } from "../../components";
 import { IoMdKey, IoMdMail } from "react-icons/io";
 import { useState } from "react";
@@ -27,11 +27,11 @@ const Login = () => {
     });
   };
 
-  const { actions, data } = useGlobalContext(state => state);
+  const { actions, data } = useGlobalContext((state) => state);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    actions.login(formData, data => {
+    actions.login(formData, (data) => {
       Router.push("/");
     });
   };
