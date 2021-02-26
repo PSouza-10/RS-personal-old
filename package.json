@@ -17,7 +17,7 @@
     "server": "yarn workspace backend start",
     "web": "yarn workspace web dev",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "build-web": "yarn workspace web build"
+    "deploy" : "git subtree push --prefix packages/web heroku master"
   },
   "repository": "https://github.com/PSouza-10/RS-personal",
   "author": "Psouza-10 <paulosouza300272@gmail.com>",

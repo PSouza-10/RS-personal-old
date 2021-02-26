@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components'
-import { IoMdArrowRoundBack } from 'react-icons/io'
-import Link from 'next/link'
-import { Logo } from '../image'
-import React from 'react'
+import styled, { css } from "styled-components";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import Link from "next/link";
+import { Logo } from "../image";
+import React from "react";
 
 interface WithOpen {
-  open: Boolean
+  open: Boolean;
 }
 
 export const MenuIcon = styled.div<WithOpen>`
@@ -37,24 +37,24 @@ export const MenuIcon = styled.div<WithOpen>`
 
   .two {
     margin: 5px 0px;
-    opacity: ${({ open }) => (open ? '0' : 'initial')};
+    opacity: ${({ open }) => (open ? "0" : "initial")};
     transition: opacity 0.2s ease;
   }
-`
+`;
 export const HeaderBrand = styled.h1`
   font-weight: 600;
   flex: 0.9;
   display: flex;
   align-items: center;
   /* text-transform: uppercase; */
-`
+`;
 
 export const MenuContainer = styled.nav<WithOpen>`
   position: absolute;
   top: 50px;
   left: 0px;
   right: 0px;
-  height: ${({ open }) => (open ? '100vh' : '0vh')};
+  height: ${({ open }) => (open ? "100vh" : "0vh")};
   overflow: hidden;
   max-width: 100vw;
   background-color: ${({ theme }) => theme.colors.bg};
@@ -83,13 +83,19 @@ export const MenuContainer = styled.nav<WithOpen>`
     width: 100%;
     background: var(--white-fade);
   }
-`
+`;
 
-const StyledLink = ({ as = "", children, className = '', href = '', ...other }) => (
+const StyledLink = ({
+  as = "",
+  children,
+  className = "",
+  href = "",
+  ...other
+}) => (
   <Link href={href} as={as} passHref {...other}>
     <a className={className}>{children}</a>
   </Link>
-)
+);
 
 export const HeaderLink = styled(StyledLink)`
   text-decoration: none;
@@ -105,9 +111,9 @@ export const HeaderLink = styled(StyledLink)`
   &:hover {
     color: var(--primary);
     background-color: ${({ theme: { isDark } }) =>
-    isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0, 0, 0, 0.1)'};
+      isDark ? "rgba(255,255,255,0.1)" : "rgba(0, 0, 0, 0.1)"};
   }
-`
+`;
 export const ArrowBack = styled(IoMdArrowRoundBack)`
   /* height: 40px;
   width: 40px; */
@@ -125,23 +131,19 @@ export const ArrowBack = styled(IoMdArrowRoundBack)`
   &:focus {
     background-color: rgba(255, 255, 255, 0.08);
   }
-`
+`;
 export const BackLink = styled(StyledLink)`
   text-decoration: none;
   color: inherit;
-  display: flex; 
+  display: flex;
   align-items: center;
-`
+`;
 export const NavLogo = styled(Logo)`
- 
-
-
   height: 35px;
+  width: 30px;
   transform: rotate(-3deg) translateY(-6%);
   fill: #f26e2c;
-
-  
-`
+`;
 export const PictureWrapper = styled.span`
   height: 45px;
   width: 45px;
@@ -151,26 +153,26 @@ export const PictureWrapper = styled.span`
   }
 
   cursor: pointer;
-`
+`;
 
 export const ActionList = styled.div<{ open: boolean }>`
-  position:fixed;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
 
-  background-color : var(--bgContrast);
+  background-color: var(--bgContrast);
 
-  display:flex;
+  display: flex;
   height: 100%;
-  transition : all 0.3s ease;
-  visibility: ${({ open }) => open ? 'visible' : 'hidden'};
-  max-height: ${({ open }) => open ? '100vh' : '0'};
+  transition: all 0.3s ease;
+  visibility: ${({ open }) => (open ? "visible" : "hidden")};
+  max-height: ${({ open }) => (open ? "100vh" : "0")};
 
   .close {
     margin-left: auto;
   }
-`
+`;
 
 export const Container = styled.header`
   display: flex;
@@ -191,7 +193,7 @@ export const Container = styled.header`
     margin-right: 10px;
   }
   .inline::before {
-    content: '';
+    content: "";
     cursor: initial;
     border-left: 2px solid var(--primary);
     margin: 0 10px;
@@ -245,4 +247,4 @@ export const Container = styled.header`
       padding: 0 6px;
     }
   }
-`
+`;

@@ -1,8 +1,11 @@
 import React from "react";
-import { LoadingContainer } from "./style";
-export function Loading() {
+import { LoadingContainer, LoadingProps } from "./style";
+export const Loading: React.FC<LoadingProps> = ({
+  wholePage,
+  isVisible = true,
+}) => {
   return (
-    <LoadingContainer>
+    <LoadingContainer wholePage={wholePage} isVisible={isVisible}>
       <svg className="spinner" viewBox="0 0 50 50">
         <circle
           className="path"
@@ -15,4 +18,4 @@ export function Loading() {
       </svg>
     </LoadingContainer>
   );
-}
+};
