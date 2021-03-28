@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export const Container = styled.main`
   display: flex;
@@ -25,7 +25,17 @@ export const Container = styled.main`
     button {
       margin-bottom: 20px;
     }
+    
   }
+  }
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      .explore {
+        max-width: 70vw;
+        margin: 0 auto;
+      }
+    }
+  `}
 `;
 
 const pulse = keyframes`

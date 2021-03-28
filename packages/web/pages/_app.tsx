@@ -4,9 +4,13 @@ import { ThemeProvider } from "styled-components";
 import theme from "../styles/Theme";
 import GlobalContext from "../Context";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { useState, useEffect } from "react";
-axios.defaults.baseURL = "http://localhost:5000";
+import axios from "axios";
+
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production"
+    ? process.env.PROD_URL
+    : "http://localhost:5000";
 
 function App({ Component, pageProps }) {
   const router = useRouter();

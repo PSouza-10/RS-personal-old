@@ -1,14 +1,14 @@
-import Account, {initialState as account} from './Account'
+import Account, { initialState as account } from "./Account";
+import Posts, { initialState as posts } from "./Posts";
 const initReducers = () => {
   return {
-
-    account: Account
-    
-  }
-}
-
+    account: Account,
+    posts: Posts,
+  };
+};
 
 export const initialState = {
-  account
-}
-export default initReducers
+  account,
+  posts,
+};
+export default initReducers;
