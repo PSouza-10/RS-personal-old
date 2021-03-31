@@ -4,7 +4,7 @@ import axios from "axios";
 export default function withDispatch(state, dispatch) {
   axios.defaults.baseURL =
     process.env.NODE_ENV === "production"
-      ? process.env.PROD_URL
+      ? process.env.PROD_URL || "https://rs-personal-server.herokuapp.com"
       : "http://localhost:5000";
   console.log(process.env);
   const setLoading = (val: boolean) => {
