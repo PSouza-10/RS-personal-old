@@ -1,5 +1,10 @@
 import { AccountActions } from "../types";
 import axios from "axios";
+
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "production"
+    ? process.env.PROD_URL
+    : "http://localhost:5000";
 export default function withDispatch(state, dispatch) {
   const setLoading = (val: boolean) => {
     dispatch({
@@ -66,7 +71,7 @@ export default function withDispatch(state, dispatch) {
 
         dispatch({
           type: AccountActions.SET_USER_DATA,
-          payload: {user:data},
+          payload: { user: data },
         });
         setLoading(false);
       } catch (e) {
