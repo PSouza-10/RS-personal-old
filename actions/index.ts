@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { Action } from "../Context/rootReducer";
 import Account from "./account";
-import Post from "./posts";
+import Message from "./message";
 export * from "./types";
 
 export default function initializeActions(
@@ -10,7 +10,7 @@ export default function initializeActions(
 ) {
   const actions = {
     ...Account(state, dispatch),
-    ...Post(state, dispatch),
+    ...Message(state, dispatch),
   };
 
   return actions;

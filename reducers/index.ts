@@ -1,14 +1,14 @@
 import Account, { initialState as account } from "./Account";
-import Posts, { initialState as posts } from "./Posts";
+import Message, { initialState as message } from "./Message";
 const initReducers = () => {
   return {
     account: Account,
-    posts: Posts,
+    message: Message,
   };
 };
 
 export const initialState = {
   account,
-  posts,
+  message,
 };
 export default initReducers;

@@ -1,4 +1,4 @@
-import { Navbar, Loading } from "../components";
+import { Navbar, Loading, Toast } from "../components";
 import GlobalStyle from "../styles/Global";
 import { ThemeProvider } from "styled-components";
 import theme from "../styles/Theme";
@@ -41,6 +41,7 @@ function App({ Component, pageProps }) {
       <GlobalContext>
         <GlobalStyle />
         <Loading wholePage isVisible={isLoading} />
+        <Toast />
         {!isNoNavbar && <Navbar />}
         <RevalidateLogin />
         <Component {...pageProps} />

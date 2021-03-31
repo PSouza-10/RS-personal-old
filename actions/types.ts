@@ -4,7 +4,7 @@ export const AccountActions = {
   SET_ERROR: "ACCOUNT_SET_ERROR",
 };
 
-export const PostActions = {
-  SET_LOADING: "POSTS_SET_LOADING",
-  SET_POSTS: "POSTS_SET",
+export const MessageActions = {
+  SET_MESSAGE: "MESSAGE_SET",
+  SET_VISIBILITY: "MESSAGE_VISIBILITY",
 };
