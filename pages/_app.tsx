@@ -2,7 +2,7 @@ import { Navbar, Loading } from "../components";
 import GlobalStyle from "../styles/Global";
 import { ThemeProvider } from "styled-components";
 import theme from "../styles/Theme";
-import GlobalContext from "../Context";
+import GlobalContext, { useGlobalContext } from "../Context";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -33,6 +33,7 @@ function App({ Component, pageProps }) {
       router.events.off("routeChangeStart", () => {});
     };
   }, []);
+
   const isNoNavbar = noNavbarRoutes.includes(path);
 
   return (
@@ -41,10 +42,23 @@ function App({ Component, pageProps }) {
         <GlobalStyle />
         <Loading wholePage isVisible={isLoading} />
         {!isNoNavbar && <Navbar />}
+        <RevalidateLogin />
         <Component {...pageProps} />
       </GlobalContext>
     </ThemeProvider>
   );
 }
 
+const RevalidateLogin = () => {
+  const { refreshToken } = useGlobalContext(({ actions }) => actions);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      refreshToken(token);
+    }
+  }, []);
+
+  return <> </>;
+};
 export default App;

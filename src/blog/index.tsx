@@ -7,14 +7,23 @@ import { Article } from "./_editorTypes";
 import { BlogContainer } from "./_styles";
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const response = await axios.get("/content");
+  try {
+    const response = await axios.get("/content");
 
-  return {
-    props: {
-      posts: response.data.posts as Article[],
-    },
-    revalidate: 5,
-  };
+    return {
+      props: {
+        posts: response.data.posts as Article[],
+      },
+      revalidate: 60,
+    };
+  } catch (e) {
+    return {
+      props: {
+        posts: [],
+      },
+      revalidate: 1,
+    };
+  }
 };
 
 const PostCard: React.FC<{ post: Article }> = ({ post }) => {

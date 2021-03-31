@@ -11,12 +11,14 @@ const Register = () => {
   const [formData, setFormData] = React.useState({
     email: "",
     password: "",
-    name: "",
+    firstName: "",
+    lastName: "",
   });
   const [isValid, setValid] = React.useState({
     email: false,
     password: false,
-    name: false,
+    firstName: false,
+    lastName: false,
   });
 
   const handleChange = ({ target: { value, name } }, valid) => {
@@ -30,7 +32,8 @@ const Register = () => {
       [name]: valid,
     });
   };
-  const { email, name, password } = isValid;
+  const { email, firstName, lastName, password } = isValid;
+  const buttonDisabled = !email || !firstName || !password;
   const { data, actions } = useGlobalContext((state) => state);
 
   const handleSubmit = (e: React.FormEvent<HTMLDivElement>) => {
@@ -59,11 +62,20 @@ const Register = () => {
             <>
               <h2>Cadastro</h2>
               <FormField
-                name="name"
+                name="firstName"
                 type="text"
                 label="Nome"
                 autoFocus
-                value={formData.name}
+                value={formData.firstName}
+                onChange={handleChange}
+                icon={<IoMdPerson />}
+              />
+              <FormField
+                name="lastName"
+                type="text"
+                label="Sobrenome"
+                autoFocus
+                value={formData.lastName}
                 onChange={handleChange}
                 icon={<IoMdPerson />}
               />
@@ -106,7 +118,7 @@ const Register = () => {
               <FormError>{data.account.err.msg}</FormError>
               <button
                 className="button"
-                disabled={!(email && name && password)}
+                disabled={buttonDisabled}
                 type="submit"
               >
                 Cadastrar

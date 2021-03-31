@@ -37,13 +37,13 @@ export default createGlobalStyle`
     }
     
 
-    body::-webkit-scrollbar {
+    *::-webkit-scrollbar {
       background-color: transparent;
       border-radius: 0.8em;
       width: 12px;
     }
 
-    body::-webkit-scrollbar-thumb {
+    *::-webkit-scrollbar-thumb {
       background-color: ${({ theme }) => theme.colors.primary};
       border-radius: 0.8em;
 

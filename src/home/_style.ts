@@ -3,7 +3,8 @@ import styled, { css, keyframes } from "styled-components";
 export const Container = styled.main`
   display: flex;
   flex-direction: column;
-
+  max-height: calc(100vh - 50px);
+  overflow:auto;
   .explore {
     width: 100%;
     h2 {

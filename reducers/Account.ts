@@ -1,47 +1,42 @@
-import { AccountActions } from '../actions'
-import { generateProfilePic } from '../utils'
+import { AccountActions } from "../actions";
 export const initialState = {
   user: {
-    _id: '',
-    name: '',
-    picture: '',
-    isAdmin: false
+    id: null,
+    firstName: "",
+    lastName: "",
+    isAdmin: false,
   },
-  token: '',
+  token: "",
   err: {
-    _id: '',
-    msg: ""
+    id: "",
+    msg: "",
   },
-  loading: false
-
-}
+  loading: false,
+};
 function reduce(state = initialState, { type, payload }) {
   switch (type) {
     case AccountActions.SET_USER_DATA:
-
-      if(!payload.user.picture){
-      const {_id,name} = payload.user
-        localStorage.setItem('picURL',generateProfilePic(name,_id))
+      if (payload.token) {
+        localStorage.setItem("token", payload.token);
       }
-
       return {
         ...state,
         user: payload.user,
-        token: payload.token
-      }
+        token: payload.token || state.token,
+      };
     case AccountActions.SET_ERROR:
       return {
         ...state,
-        err: payload
-      }
+        err: payload,
+      };
     case AccountActions.SET_LOADING:
       return {
         ...state,
-        loading: payload
-      }
+        loading: payload,
+      };
     default:
-      return state
+      return state;
   }
 }
 
-export default reduce
+export default reduce;

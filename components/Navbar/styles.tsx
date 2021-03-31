@@ -1,8 +1,6 @@
 import styled, { css } from "styled-components";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import Link from "next/link";
+
 import { Logo } from "../image";
-import React from "react";
 
 interface WithOpen {
   open: Boolean;
@@ -46,205 +44,130 @@ export const HeaderBrand = styled.h1`
   flex: 0.9;
   display: flex;
   align-items: center;
-  /* text-transform: uppercase; */
+  order: 0;
 `;
 
 export const MenuContainer = styled.nav<WithOpen>`
-  position: absolute;
+  position: fixed;
+
   top: 50px;
-  left: 0px;
-  right: 0px;
-  height: ${({ open }) => (open ? "100vh" : "0vh")};
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  max-height: 0;
+  height: auto;
   overflow: hidden;
-  max-width: 100vw;
-  background-color: ${({ theme }) => theme.colors.bg};
+  transition: max-height 0.4s ease;
+  ${({ open }) =>
+    open &&
+    css`
+      max-height: 1000%;
+    `}
+  background-color: var(--detail);
+
+  display: flex;
   flex-direction: column;
-  align-items: center;
-  color: ${({ theme }) => theme.colors.primary};
-  justify-content: flex-start;
-  transition: height 0.3s ease;
-  z-index: 10;
-  ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    margin-top: 25px;
-    background-color: ${({ theme }) => theme.colors.bg};
-  }
-  .header-account {
+
+  .navLink {
     font-size: 1.3rem;
+    text-align: center;
+    padding: 0.2rem 0;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: #fff2;
+      color: var(--primary);
+    }
   }
+
   .header-separator {
     height: 2px;
-    margin: 6px 0;
-    width: 100%;
-    background: var(--white-fade);
+    background-color: var(--primary);
+    margin: 0.5rem 0;
   }
-`;
 
-const StyledLink = ({
-  as = "",
-  children,
-  className = "",
-  href = "",
-  ...other
-}) => (
-  <Link href={href} as={as} passHref {...other}>
-    <a className={className}>{children}</a>
-  </Link>
-);
-
-export const HeaderLink = styled(StyledLink)`
-  text-decoration: none;
-  color: #fff8;
-  width: 100%;
-  padding: 10px 0px;
-  text-align: center;
-  display: block;
-  cursor: pointer;
-  font-size: 1.2rem;
-  background-color: transparent;
-  transition: all 0.3s ease;
-  &:hover {
+  .accountLink {
     color: var(--primary);
-    background-color: ${({ theme: { isDark } }) =>
-      isDark ? "rgba(255,255,255,0.1)" : "rgba(0, 0, 0, 0.1)"};
-  }
-`;
-export const ArrowBack = styled(IoMdArrowRoundBack)`
-  /* height: 40px;
-  width: 40px; */
-  height: 40px;
-  width: 40px;
-  flex-shrink: 0;
-  cursor: pointer;
-  border-radius: 50%;
-  padding: 5px;
-  transform: translateX(-6%);
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    align-self: center;
+    font-size: 1.3rem;
+    transition: all 0.2s ease;
   }
 
-  &:focus {
-    background-color: rgba(255, 255, 255, 0.08);
+  .accountLink:last-child {
+    outline: 1px solid var(--primary);
+    padding: 0.2rem 0.5rem;
+    &:hover {
+      background-color: var(--primary);
+      color: white;
+    }
   }
+  .accountLink:nth-of-type(2) {
+    &:hover {
+      text-decoration: underline;
+      background-color: transparent;
+      color: var(--primary);
+    }
+  }
+  .account-text {
+    color: var(--fg);
+    text-align: center;
+    margin: 0.4rem 0;
+  }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      & + ${MenuIcon} {
+        display: none;
+      }
+
+      position: static;
+      flex-direction: row;
+      max-height: auto;
+      overflow: visible;
+      flex: 1;
+      align-items: center;
+      gap: 0.4rem;
+      justify-content: flex-end;
+
+      .navLink {
+        flex: 1;
+      }
+      .account-text {
+        margin: 0 0;
+      }
+      .header-separator {
+        height: 100%;
+        align-self: stretch;
+        width: 2px;
+        margin: 0 0.5rem;
+      }
+    }
+  `}
 `;
-export const BackLink = styled(StyledLink)`
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-`;
+
 export const NavLogo = styled(Logo)`
   height: 35px;
   width: 30px;
   transform: rotate(-3deg) translateY(-6%);
   fill: #f26e2c;
 `;
-export const PictureWrapper = styled.span`
-  height: 45px;
-  width: 45px;
-  img {
-    height: 100%;
-    width: 100%;
-  }
-
-  cursor: pointer;
-`;
-
-export const ActionList = styled.div<{ open: boolean }>`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  background-color: var(--bgContrast);
-
-  display: flex;
-  height: 100%;
-  transition: all 0.3s ease;
-  visibility: ${({ open }) => (open ? "visible" : "hidden")};
-  max-height: ${({ open }) => (open ? "100vh" : "0")};
-
-  .close {
-    margin-left: auto;
-  }
-`;
 
 export const Container = styled.header`
   display: flex;
+  padding: 0.1rem 0.3rem;
   justify-content: space-between;
   align-items: center;
-  height: 50px;
-  padding: 0 25px;
-  background-color: ${({ theme }) => theme.colors.bg};
-  color: ${({ theme }) => theme.colors.primary};
   position: sticky;
   top: 0;
-  z-index: 10;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-  .account {
-    display: none;
-  }
-  .inline {
-    margin-right: 10px;
-  }
-  .inline::before {
-    content: "";
-    cursor: initial;
-    border-left: 2px solid var(--primary);
-    margin: 0 10px;
-  }
-  @media (min-width: 768px) {
-    ${MenuIcon} {
-      display: none;
-    }
-    .account {
-      display: initial;
-      order: 3;
-    }
-    ${HeaderBrand} {
-      order: 1;
-    }
-    ${MenuContainer} {
-      height: inherit;
-      max-width: 500px;
-      position: static;
-      justify-content: center;
-      align-items: stretch;
-      transition: none;
-      flex: 0.8;
-      order: 2;
-      flex-direction: row;
-      display: block;
-      overflow: visible;
-      ul {
-        margin: 0;
-        flex-direction: row;
-        height: 100%;
-        justify-content: space-evenly;
-        align-items: stretch;
-        margin-right: 12px;
-      }
-      .header-account {
-        display: none;
-      }
-      .header-separator {
-        display: none;
+  z-index: 5;
+  height: 50px;
+  background-color: var(--detail);
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      h3 {
+        order: 3;
+        margin: 0 1rem;
       }
     }
-    ${HeaderLink} {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-      text-align: center;
-      font-weight: 560;
-      padding: 0 6px;
-    }
-  }
+  `}
 `;

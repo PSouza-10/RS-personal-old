@@ -25,13 +25,13 @@ export default function Home() {
         </p>
         <nav>
           <Link href="/explore/body">
-            <button className="button">Aprenda mais Sobre o corpo</button>
+            <button className="button">Aprenda mais sobre o corpo</button>
           </Link>
           <Link href="/explore/mind">
-            <button className="button">Aprenda mais Sobre a mente</button>
+            <button className="button">Aprenda mais sobre a mente</button>
           </Link>
           <Link href="/explore/spirit">
-            <button className="button">Aprenda mais sovre o espírito</button>
+            <button className="button">Aprenda mais sobre o espírito</button>
           </Link>
         </nav>
       </section>

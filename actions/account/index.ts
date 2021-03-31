@@ -16,8 +16,9 @@ export default function withDispatch(state, dispatch) {
   const actions = {
     async register(accountData, cb?: (data) => any) {
       setLoading(true);
+      setError({});
       try {
-        const { data } = await axios.post("/account/register", accountData);
+        const { data } = await axios.post("/account", accountData);
 
         dispatch({
           type: AccountActions.SET_USER_DATA,
@@ -37,7 +38,7 @@ export default function withDispatch(state, dispatch) {
       setLoading(true);
       setError({});
       try {
-        const { data } = await axios.post("/account", accountData);
+        const { data } = await axios.post("/account/login", accountData);
 
         dispatch({
           type: AccountActions.SET_USER_DATA,
@@ -53,8 +54,29 @@ export default function withDispatch(state, dispatch) {
         setLoading(false);
       }
     },
-  };
+    async refreshToken(token: string) {
+      setLoading(true);
+      setError({});
+      try {
+        const { data } = await axios.get("/account", {
+          headers: {
+            authorization: token,
+          },
+        });
 
+        dispatch({
+          type: AccountActions.SET_USER_DATA,
+          payload: {user:data},
+        });
+        setLoading(false);
+      } catch (e) {
+        if (e.isAxiosError) {
+          setError(e.response.data);
+        }
+        setLoading(false);
+      }
+    },
+  };
   return {
     ...actions,
   };
