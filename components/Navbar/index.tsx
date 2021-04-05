@@ -33,6 +33,9 @@ export function Navbar() {
         <Link href="/blog" passHref>
           <a className="navLink">Blog</a>
         </Link>
+        <Link href="/avaliacao" passHref>
+          <a className="navLink">Avaliacao gratuita</a>
+        </Link>
         {!id && (
           <>
             <span className="header-separator"></span>

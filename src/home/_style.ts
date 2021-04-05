@@ -3,8 +3,7 @@ import styled, { css, keyframes } from "styled-components";
 export const Container = styled.main`
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 50px);
-  overflow:auto;
+
   .explore {
     width: 100%;
     h2 {
@@ -26,9 +25,8 @@ export const Container = styled.main`
     button {
       margin-bottom: 20px;
     }
-    
   }
-  }
+
   ${({ theme: { breakpoints } }) => css`
     @media (min-width: ${breakpoints.md}) {
       .explore {

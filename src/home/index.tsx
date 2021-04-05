@@ -6,7 +6,7 @@ import Head from "next/head";
 import { IoBodyOutline } from "react-icons/io5";
 export default function Home() {
   return (
-    <Container>
+    <Container className="page-container">
       <Head>
         <title>Rs-Personal - Home</title>
       </Head>

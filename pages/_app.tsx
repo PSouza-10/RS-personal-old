@@ -9,7 +9,7 @@ import axios from "axios";
 
 axios.defaults.baseURL =
   process.env.NODE_ENV === "production"
-    ? process.env.PROD_URL
+    ? "https://rs-personal-server.herokuapp.com"
     : "http://localhost:5000";
 
 function App({ Component, pageProps }) {

@@ -1,6 +1,6 @@
-import React from 'react'
-import { Call, Container, Image } from './styles'
-import Link from 'next/link'
+import React from "react";
+import { Call, Container, Image } from "./styles";
+import Link from "next/link";
 
 export function Hero() {
   return (
@@ -13,17 +13,14 @@ export function Hero() {
           aqui é te ensinar, e auxiliar em seu crescimento pessoal.
         </p>
         <span>
-          <Link  href='/main' passHref>
-            <button className='button'>Quero Aprender </button>
+          <Link href="/subscribe" passHref>
+            <button className="button">Quero Aprender </button>
           </Link>
         </span>
       </Call>
-      <Image >
-
-      <img src='/trainer.jpg' alt='Banner' />
+      <Image>
+        <img src="/trainer.jpg" alt="Banner" />
       </Image>
-
-      
     </Container>
-  )
+  );
 }

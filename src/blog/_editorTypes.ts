@@ -65,7 +65,7 @@ export interface Article {
   id: number;
   title: string;
   data: EditorComponent<NodeData>[];
-  tags: string[];
+  tags: string;
   public: boolean;
   requires_membership: boolean;
   comments: null | any[];

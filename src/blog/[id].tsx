@@ -3,7 +3,16 @@ import { GetServerSideProps } from "next";
 import { Article } from "./_editorTypes";
 import { PostContainer } from "./_styles";
 import React from "react";
-import { BlogImage, BlogText, BlogTitle } from "./articleComponents";
+import {
+  BlogImage,
+  BlogList,
+  BlogTable,
+  BlogText,
+  BlogTitle,
+  BlogVideo,
+} from "./articleComponents";
+import { formatDate } from "./formatDate";
+import Head from "next/head";
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const post = await axios.get(`/content/${params.id}`);
 
@@ -19,16 +28,33 @@ interface INodeComponentMap {
 }
 
 const Post: React.FC<{ post: Article }> = ({ post }) => {
-  const { title, data } = post;
+  const { title, data, updatedAt, description, tags } = post;
   const nodeComponentMap: INodeComponentMap = {
     Title: <BlogTitle />,
     Paragraph: <BlogText />,
     Image: <BlogImage />,
+    Table: <BlogTable />,
+    Video: <BlogVideo />,
+    List: <BlogList />,
   };
 
   return (
-    <PostContainer>
-      <h1>{title}</h1>
+    <PostContainer className="page-container">
+      <Head>
+        <title>{title} - Blog RS-Personal</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content={tags} />
+      </Head>
+
+      <header>
+        <h1>{title}</h1>
+        <time dateTime={updatedAt}>{formatDate(updatedAt)} </time>
+        <section className="tags">
+          {tags.split(",").map((tag, idx) => (
+            <em key={idx}>{tag}</em>
+          ))}
+        </section>
+      </header>
       {data &&
         data.map((node, idx) =>
           React.cloneElement(nodeComponentMap[node.data.type], {
