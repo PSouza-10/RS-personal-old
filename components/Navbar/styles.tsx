@@ -45,6 +45,7 @@ export const HeaderBrand = styled.h1`
   display: flex;
   align-items: center;
   order: 0;
+  cursor: pointer;
 `;
 
 export const MenuContainer = styled.nav<WithOpen>`

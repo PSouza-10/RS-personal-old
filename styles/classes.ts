@@ -29,6 +29,19 @@ export default css`
       cursor: initial;
     }
   }
+
+  .danger {
+    color: var(--error);
+    border-color: var(--error);
+    &:not(:disabled):hover,
+    &:focus {
+      background-color: var(--error);
+      color: #fff;
+    }
+    &:not(:disabled):focus {
+      box-shadow: 0 0 6px 4px #ee222240;
+    }
+  }
   .inline {
     color: var(--primary);
     font-size: inherit;
@@ -66,5 +79,20 @@ export default css`
   .page-container {
     max-height: calc(100vh - 50px);
     overflow-y: auto;
+  }
+
+  .badge {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-size: 0.8rem;
+    padding: 0.1rem 0.3rem;
+    cursor: pointer;
+    border-radius: 0.5em;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    &:hover,
+    &.selected {
+      background-color: var(--primary);
+      color: var(--fg);
+    }
   }
 `;
