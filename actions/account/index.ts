@@ -2,11 +2,6 @@ import { AccountActions, MessageActions } from "../types";
 import axios from "axios";
 
 export default function withDispatch(state, dispatch) {
-  axios.defaults.baseURL =
-    process.env.NODE_ENV === "production"
-      ? process.env.PROD_URL || "https://rs-personal-server.herokuapp.com"
-      : "http://localhost:5000";
-
   const setLoading = (val: boolean) => {
     dispatch({
       type: AccountActions.SET_LOADING,

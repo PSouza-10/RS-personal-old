@@ -78,7 +78,10 @@ export default css`
 
   .page-container {
     max-height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px);
     overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   .badge {
