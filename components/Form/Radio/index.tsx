@@ -10,6 +10,7 @@ export const RadioInput: React.FC<IRadio> = ({
   value,
   label,
   onChange,
+  ...props
 }) => {
   return (
     <Radio htmlFor={id} className={"radioGroup"}>
@@ -19,6 +20,7 @@ export const RadioInput: React.FC<IRadio> = ({
         name={name}
         id={id}
         value={value}
+        {...props}
       />
       <span className="circle">
         <em className="dot"></em>
@@ -46,8 +48,11 @@ export const RadioGroup: React.FC<IRadioGroup> = ({
   return (
     <RadioGroupContainer className={className}>
       <h4>{radioLabel}</h4>
-      {options.map(({ id, value, label }) => (
-        <RadioInput {...{ name, id, value, label, onChange }} />
+      {options.map(({ id, value, label, checked }) => (
+        <RadioInput
+          {...{ name, id, value, label, onChange, checked }}
+          key={id}
+        />
       ))}
     </RadioGroupContainer>
   );

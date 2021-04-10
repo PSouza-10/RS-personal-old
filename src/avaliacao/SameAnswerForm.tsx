@@ -40,6 +40,7 @@ export const SameAnswerForm: React.FC<ICompositeRadioForm> = ({
           }))}
           onChange={(val) => handleValueChange(qstIdx, val)}
           name={formKey + "-" + qstIdx}
+          key={formKey + "-" + qstIdx}
         />
       ))}
     </FormContainer>

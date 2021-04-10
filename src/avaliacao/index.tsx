@@ -59,14 +59,7 @@ const FormIntro: React.FC<{ forms: IForms | null }> = ({ forms }) => {
       );
     }
   };
-  const formComponents = Object.keys(forms).map(buildFormPage);
-  const formPages = [
-    <IdentificationForm
-      setVal={(newVal) => setUserInfo(newVal)}
-      val={userInfo}
-    />,
-    ...formComponents,
-  ];
+  const formComponents = ["identification", ...Object.keys(forms)];
 
   const containerRef = useRef<null | HTMLElement>(null);
 
@@ -77,7 +70,18 @@ const FormIntro: React.FC<{ forms: IForms | null }> = ({ forms }) => {
   }, [currentPage]);
   return (
     <Container className="page-container" ref={containerRef}>
-      {forms && formValues && formPages[currentPage]}
+      {currentPage === 0 ? (
+        <IdentificationForm
+          val={userInfo}
+          setVal={(value) => setUserInfo(value)}
+        />
+      ) : (
+        <>
+          {/* {JSON.stringify(formValues[formComponents[currentPage]])} */}
+          {buildFormPage(formComponents[currentPage])}
+        </>
+      )}
+
       <section className="page-nav">
         {currentPage !== 0 && (
           <button
@@ -87,7 +91,7 @@ const FormIntro: React.FC<{ forms: IForms | null }> = ({ forms }) => {
             Anterior
           </button>
         )}
-        {currentPage === formPages.length - 1 ? (
+        {currentPage === formComponents.length - 1 ? (
           <button className="button">Enviar</button>
         ) : (
           <button

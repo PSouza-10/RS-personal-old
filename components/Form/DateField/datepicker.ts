@@ -7,7 +7,7 @@ export default css`
     color: var(--white-fade);
 
     width: 100%;
-
+    position: relative;
     cursor: text;
     transition: all 0.3s ease;
     z-index: 1;

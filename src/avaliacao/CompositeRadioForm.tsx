@@ -44,6 +44,8 @@ export const CompositeRadioForm: React.FC<ICompositeRadioForm> = ({
           qstIdx,
           formKey,
           handleChange: handleValueChange,
+          key: formKey + "-" + qstIdx,
+          val: val[qstIdx],
         };
         switch (question.type) {
           case "composite":
@@ -67,17 +69,20 @@ export const CompositeRadioForm: React.FC<ICompositeRadioForm> = ({
     </FormContainer>
   );
 };
+
 interface IQuestionComponent<T = "simple" | "composite" | "same-answer"> {
   qstIdx: number;
   question: { type: T } & Question;
   handleChange: RadioGroupChangeHandler;
   formKey: string;
+  val: number | null | (number | null)[];
 }
 const CompositeSubQuestion: React.FC<IQuestionComponent<"composite">> = ({
   formKey,
   handleChange,
   qstIdx,
   question,
+  val,
 }) => {
   const { sub, label } = question;
   return (
@@ -90,10 +95,12 @@ const CompositeSubQuestion: React.FC<IQuestionComponent<"composite">> = ({
             id: `${formKey}-${qstIdx}-sub-${subQstIdx}-opt-${optIdx}`,
             label: optLabel,
             value,
+            checked: val[subQstIdx] === value,
           }))}
           className="subQuestion"
           onChange={(val) => handleChange(qstIdx, val, subQstIdx)}
           name={`${formKey}-${qstIdx}-sub-${subQstIdx}`}
+          key={`${formKey}-${qstIdx}-sub-${subQstIdx}`}
         />
       ))}
     </>
@@ -105,6 +112,7 @@ const SameAnswerQuestion: React.FC<IQuestionComponent<"same-answer">> = ({
   handleChange,
   qstIdx,
   question,
+  val,
 }) => {
   const { label, opts, sub } = question;
 
@@ -118,10 +126,12 @@ const SameAnswerQuestion: React.FC<IQuestionComponent<"same-answer">> = ({
             id: `${formKey}-${qstIdx}-sub-${subQstIdx}-opt-${optIdx}`,
             label: optLabel,
             value,
+            checked: val[subQstIdx] === value,
           }))}
           className="subQuestion"
           onChange={(val) => handleChange(qstIdx, val, subQstIdx)}
           name={`${formKey}-${qstIdx}-sub-${subQstIdx}`}
+          key={`${formKey}-${qstIdx}-sub-${subQstIdx}`}
         />
       ))}
     </>
@@ -133,6 +143,7 @@ const SimpleQuestion: React.FC<IQuestionComponent<"simple">> = ({
   qstIdx,
   handleChange,
   formKey,
+  val,
 }) => {
   const { label, opts } = question;
 
@@ -143,6 +154,7 @@ const SimpleQuestion: React.FC<IQuestionComponent<"simple">> = ({
         id: `${formKey}-${qstIdx}-opt-${optIdx}`,
         value: value,
         label: optLabel,
+        checked: val === value,
       }))}
       name={formKey + "-" + qstIdx.toString()}
       onChange={(val) => handleChange(qstIdx, val, null)}
