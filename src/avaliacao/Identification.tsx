@@ -43,7 +43,7 @@ export const IdentificationForm: React.FC<IIdentification> = ({
 
   return (
     <IDFormContainer>
-      <h2>Indentificação</h2>
+      <h1>Identificação</h1>
       <p>Os dados inseridos aqui serão utilizados para um possível contato.</p>
       <FormField
         name="firstName"

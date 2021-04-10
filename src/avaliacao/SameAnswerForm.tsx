@@ -1,11 +1,11 @@
 import { ChangeEvent } from "react";
 import { RadioGroup } from "../../components/Form/Radio";
-import { FormVal, Form } from "./index";
+import { FormVal, Form } from "./types";
 import { FormContainer } from "./style";
 interface ICompositeRadioForm {
   setValue: (val: FormVal) => any;
   val: FormVal;
-  content: Form;
+  content: { type: "same-answer" } & Form;
   formKey: string;
 }
 
@@ -28,8 +28,8 @@ export const SameAnswerForm: React.FC<ICompositeRadioForm> = ({
 
   return (
     <FormContainer>
-      
       <h1>{content.title}</h1>
+      {content.description && <p>{content.description}</p>}
       {content.questions.map((question, qstIdx) => (
         <RadioGroup
           radioLabel={question}

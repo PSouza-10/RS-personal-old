@@ -1,7 +1,15 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.main`
   color: var(--fg);
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      padding: 0 10vw;
+      ${FormContainer} {
+        font-size: 0.8rem;
+      }
+    }
+  `}
   .page-nav {
     position: fixed;
     bottom: 0;
@@ -24,6 +32,7 @@ export const FormContainer = styled.form`
   padding: 2rem 1rem;
   padding-bottom: 4rem;
   gap: 1.5rem;
+
   .subQuestion {
     margin-left: 1.5rem;
   }

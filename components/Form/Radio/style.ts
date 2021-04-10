@@ -4,6 +4,7 @@ export const Radio = styled.label`
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  font-size: 1em;
   cursor: pointer;
 
   input {
@@ -18,9 +19,9 @@ export const Radio = styled.label`
   .circle {
     border: 2px solid #fff8;
     border-radius: 50%;
-    min-height: 1rem;
+    min-height: 1em;
 
-    min-width: 1rem;
+    min-width: 1em;
 
     transition: all 0.2s ease;
     background-size: 30px 30px;
