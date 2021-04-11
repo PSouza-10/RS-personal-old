@@ -10,7 +10,6 @@ export default css`
     position: relative;
     cursor: text;
     transition: all 0.3s ease;
-    z-index: 1;
   }
 
   .react-date-picker,
@@ -29,7 +28,7 @@ export default css`
     display: flex;
     flex-grow: 1;
     flex-shrink: 0;
-    border-bottom: 2px solid var(--white-fade);
+    border-bottom: 1px solid var(--white-fade);
     /* padding-bottom: calc(var(--input-base) * 1); */
     transition: all 0.3s ease;
   }
@@ -39,7 +38,7 @@ export default css`
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 2px;
+    height: 3px;
     background-color: var(--primary);
     transform: scaleX(0);
     transform-origin: left;
@@ -67,7 +66,7 @@ export default css`
     font-size: 1em;
     border: 0;
     background: none;
-    font: inherit;
+
     box-sizing: content-box;
     -moz-appearance: textfield;
     color: var(--white-fade);

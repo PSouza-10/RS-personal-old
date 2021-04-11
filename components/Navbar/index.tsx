@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Container,
   MenuIcon,
@@ -6,16 +6,12 @@ import {
   NavLogo,
   HeaderBrand,
 } from "./styles";
-import { useGlobalContext } from "../../Context";
 import Link from "next/link";
-import { useRouter } from "next/router";
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { id, firstName } = useGlobalContext(({ data }) => data.account.user);
   const lockYScroll = (lock) => {
     document.body.style.overflow = lock ? "hidden" : "initial";
   };
-  const router = useRouter();
 
   const handleMenu = () => {
     lockYScroll(!menuOpen);
@@ -25,12 +21,13 @@ export function Navbar() {
   return (
     <Container>
       <Link href="/">
-        <HeaderBrand>
-          <NavLogo />
+        <HeaderBrand onClick={handleMenu}>
+          {/* Prevent huge black logo on page load */}
+          <NavLogo className="logo-style-load" />
           Personal
         </HeaderBrand>
       </Link>
-      {id && <h3>Olá {firstName}</h3>}
+      {/* {id && <h3>Olá {firstName}</h3>} */}
       <MenuContainer open={menuOpen}>
         <Link href="/blog" passHref>
           <a className="navLink" onClick={handleMenu}>
@@ -39,10 +36,10 @@ export function Navbar() {
         </Link>
         <Link href="/avaliacao" passHref>
           <a className="navLink" onClick={handleMenu}>
-            Avaliacao
+            Avaliação
           </a>
         </Link>
-        {!id && (
+        {/* {!id && (
           <>
             <span className="header-separator"></span>
 
@@ -58,7 +55,7 @@ export function Navbar() {
               </a>
             </Link>
           </>
-        )}
+        )} */}
       </MenuContainer>
 
       <MenuIcon open={menuOpen} onClick={handleMenu}>

@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.main`
   color: var(--fg);
+  max-height: calc(100vh - 140px);
+  min-height: calc(100vh - 140px);
   ${({ theme: { breakpoints } }) => css`
     @media (min-width: ${breakpoints.md}) {
       padding: 0 10vw;
@@ -23,6 +25,25 @@ export const Container = styled.main`
     background-color: var(--bgContrast);
     button:last-child {
       margin-left: auto;
+    }
+  }
+
+  .form-intro {
+    padding: 1rem;
+    height: 100%;
+    p {
+      margin-top: 1rem;
+      line-height: 1.25;
+    }
+
+    a {
+      margin: 01rem 5%;
+    }
+    a:first-child {
+      margin-top: auto;
+    }
+    a:last-child {
+      margin-bottom: auto;
     }
   }
 `;

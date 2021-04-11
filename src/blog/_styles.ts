@@ -201,6 +201,7 @@ export const PostContainer = styled.article`
   padding: 0.4rem 2rem;
   display: flex;
   flex-direction: column;
+
   header {
     padding: 1rem 0;
     h1 {

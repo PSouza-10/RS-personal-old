@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
+import { MdCake } from "react-icons/md";
+import { AiOutlineIdcard } from "react-icons/ai";
 import { DateField, FormField } from "../../components";
 import { IDFormContainer } from "./style";
 
@@ -43,7 +45,6 @@ export const IdentificationForm: React.FC<IIdentification> = ({
 
   return (
     <IDFormContainer>
-      <h1>Identificação</h1>
       <p>Os dados inseridos aqui serão utilizados para um possível contato.</p>
       <FormField
         name="firstName"
@@ -60,7 +61,7 @@ export const IdentificationForm: React.FC<IIdentification> = ({
         label="Sobrenome"
         value={val.lastName}
         onChange={handleChange}
-        icon={<IoMdPerson />}
+        icon={<AiOutlineIdcard />}
       />
       <FormField
         name="email"
@@ -86,6 +87,7 @@ export const IdentificationForm: React.FC<IIdentification> = ({
             null
           )
         }
+        icon={<MdCake />}
         label="Data de Nascimento"
       />
     </IDFormContainer>

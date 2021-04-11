@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GetServerSideProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { Article } from "./_editorTypes";
 import { PostContainer } from "./_styles";
 import React from "react";
@@ -13,21 +13,73 @@ import {
 } from "./articleComponents";
 import { formatDate } from "./formatDate";
 import Head from "next/head";
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const post = await axios.get(`/content/${params.id}`);
+import { useRouter } from "next/router";
+import { Loading } from "../../components";
 
-  return {
-    props: {
-      post: post.data as Article,
-    },
-  };
+export const getStaticPaths: GetStaticPaths = async () => {
+  try {
+    const response = await axios.get("/content");
+    const articles = response.data.posts as Article[];
+    let paths = [];
+
+    articles.forEach(({ id }) => {
+      paths.push({ params: { id: id.toString() } });
+    });
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      paths: [],
+      fallback: true,
+    };
+  }
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  try {
+    const post = await axios.get(`/content/${params.id}`);
+
+    return {
+      props: {
+        post: post.data as Article,
+      },
+      revalidate: 10,
+    };
+  } catch (e) {
+    if (e.isAxiosError && e.response.status === 404) {
+      return {
+        notFound: true,
+        revalidate: 10,
+      };
+    } else {
+      return {
+        props: {
+          err: "Ocorreu um erro",
+        },
+        revalidate: 10,
+      };
+    }
+  }
 };
 
 interface INodeComponentMap {
   [x: string]: any;
 }
+interface PostProps {
+  err?: string;
+  post?: Article;
+}
 
-const Post: React.FC<{ post: Article }> = ({ post }) => {
+const Post: React.FC<PostProps> = ({ post, err }) => {
+  const router = useRouter();
+  if (err) {
+    return <h1>{err}</h1>;
+  } else if (router.isFallback) {
+    return <Loading wholePage isVisible={true} />;
+  }
   const { title, data, updatedAt, description, tags } = post;
   const nodeComponentMap: INodeComponentMap = {
     Title: <BlogTitle />,
@@ -37,7 +89,6 @@ const Post: React.FC<{ post: Article }> = ({ post }) => {
     Video: <BlogVideo />,
     List: <BlogList />,
   };
-
   return (
     <PostContainer className="page-container">
       <Head>

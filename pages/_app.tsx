@@ -1,8 +1,7 @@
-import { Navbar, Loading, Toast } from "../components";
+import { Navbar, Loading } from "../components";
 import GlobalStyle from "../styles/Global";
 import { ThemeProvider } from "styled-components";
 import theme from "../styles/Theme";
-import GlobalContext, { useGlobalContext } from "../Context";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -34,28 +33,24 @@ function App({ Component, pageProps }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalContext>
-        <GlobalStyle />
-        <Loading wholePage isVisible={isLoading} />
-        <Toast />
-        {!isNoNavbar && <Navbar />}
-        <RevalidateLogin />
-        <Component {...pageProps} />
-      </GlobalContext>
+      <GlobalStyle />
+      <Loading wholePage isVisible={isLoading} />
+      {!isNoNavbar && <Navbar />}
+      <Component {...pageProps} />
     </ThemeProvider>
   );
 }
 
-const RevalidateLogin = () => {
-  const { refreshToken } = useGlobalContext(({ actions }) => actions);
+// const RevalidateLogin = () => {
+//   const { refreshToken } = useGlobalContext(({ actions }) => actions);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      refreshToken(token);
-    }
-  }, []);
+//   useEffect(() => {
+//     const token = localStorage.getItem("token");
+//     if (token) {
+//       refreshToken(token);
+//     }
+//   }, []);
 
-  return <> </>;
-};
+//   return <> </>;
+// };
 export default App;

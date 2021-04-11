@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components'
+import styled, { css, keyframes } from "styled-components";
 
 const ImageAnimation = keyframes`
   0% {
@@ -10,25 +10,26 @@ const ImageAnimation = keyframes`
 
     opacity: 1;
   }
-`
+`;
 
 export const Image = styled.figure`
   order: 1;
   width: 100%;
   align-self: stretch;
-
+  max-height: 50vh;
+  overflow: hidden;
   img {
-    width: 100%;
-    height: 100%;
-  animation-name: ${ImageAnimation};
-  animation-duration: 1s;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    animation-name: ${ImageAnimation};
+    animation-duration: 1s;
 
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-timing-function: ease;
-
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
   }
-`
+`;
 const TextAnimation = keyframes`
   from {
     transform: translateY(100%);
@@ -39,7 +40,7 @@ const TextAnimation = keyframes`
    
 
   }
-`
+`;
 const TextAnimationDesktop = keyframes`
   from {
     transform: translateX(-100%);
@@ -52,7 +53,7 @@ const TextAnimationDesktop = keyframes`
    
 
   }
-`
+`;
 
 export const Call = styled.article`
   display: flex;
@@ -75,7 +76,7 @@ export const Call = styled.article`
     position: relative;
     &::after {
       position: absolute;
-      content: '';
+      content: "";
       background-color: ${({ theme: { colors } }) => colors.secondary};
       height: 6px;
       bottom: -10%;
@@ -100,7 +101,7 @@ export const Call = styled.article`
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -117,7 +118,7 @@ export const Call = styled.article`
     transform: skewX(-20deg);
     display: none;
   }
-`
+`;
 
 export const Container = styled.main`
   width: 100%;
@@ -127,24 +128,24 @@ export const Container = styled.main`
 
   ${({
     theme: {
-      breakpoints: { sm, md, lg }
-    }
+      breakpoints: { md },
+    },
   }) => css`
-    @media (min-width: ${sm}) and (max-width: ${md}) {
-      ${Image} {
-        max-height: 66vh;
-        
-      }
-    }
     @media (min-width: ${md}) {
       flex-direction: row;
       position: relative;
       ${Image} {
         order: 3;
         max-width: 60%;
+        min-height: 100%;
+        img {
+          max-width: 1000%;
+        }
+        height: 100%;
+        width: auto;
         max-height: 1000%;
+
         z-index: 1;
-       
       }
 
       ${Call} {
@@ -177,4 +178,4 @@ export const Container = styled.main`
       }
     }
   `}
-`
+`;

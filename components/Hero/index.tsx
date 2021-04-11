@@ -13,8 +13,8 @@ export function Hero() {
           aqui é te ensinar, e auxiliar em seu crescimento pessoal.
         </p>
         <span>
-          <Link href="/subscribe" passHref>
-            <button className="button">Quero Aprender </button>
+          <Link href="/avalicao" passHref>
+            <button className="button">Avaliação física gratuita </button>
           </Link>
         </span>
       </Call>

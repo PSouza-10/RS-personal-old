@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <Container className="page-container">
       <Head>
-        <title>Rs-Personal - Home</title>
+        <title>RS-Personal - Home</title>
       </Head>
       <Hero />
 

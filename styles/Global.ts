@@ -5,17 +5,20 @@ export default createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Titillium Web', sans-serif;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        font-family: 'Inter', sans-serif;
+       
+        outline: none;
+        caret-color: ${({ theme }) => theme.colors.primary};
+        
+    }
+    *:not(input){
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         -webkit-tap-highlight-color: transparent;
         -webkit-user-select: none;
         -khtml-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        outline: none;
-        caret-color: ${({ theme }) => theme.colors.primary};
-        
     }
     :root {
       --primary : ${({ theme: { colors } }) => colors.primary};
@@ -32,7 +35,7 @@ export default createGlobalStyle`
         height: 100%;
         max-width: 100vw;
        
-       background-color: ${({ theme }) => theme.colors.bg};
+       background-color: #222222;
        
     }
     

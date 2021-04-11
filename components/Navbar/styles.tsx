@@ -76,7 +76,7 @@ export const MenuContainer = styled.nav<WithOpen>`
     padding: 0.2rem 0;
     transition: all 0.3s ease;
     &:hover {
-      background-color: #fff2;
+      background-color: #fff1;
       color: var(--primary);
     }
   }
@@ -150,7 +150,7 @@ export const NavLogo = styled(Logo)`
   height: 35px;
   width: 30px;
   transform: rotate(-3deg) translateY(-6%);
-  fill: #f26e2c;
+  fill: var(--primary);
 `;
 
 export const Container = styled.header`
@@ -162,7 +162,7 @@ export const Container = styled.header`
   top: 0;
   z-index: 5;
   height: 50px;
-  background-color: var(--detail);
+  background-color: var(--bg);
   ${({ theme: { breakpoints } }) => css`
     @media (min-width: ${breakpoints.md}) {
       h3 {

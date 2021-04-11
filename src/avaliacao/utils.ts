@@ -1,4 +1,4 @@
-import { IForms } from "./index";
+import { IForms } from "./types";
 export function getInitialValues(forms: IForms) {
   let obj = {};
   for (let key in forms) {
@@ -6,15 +6,15 @@ export function getInitialValues(forms: IForms) {
 
     switch (formObj.type) {
       case "composite":
-        const parsedQuestions = formObj.questions.map(
-          ({ sub, label, opts }) => {
-            if (sub) {
-              return [...Array(sub.length).fill(null)];
-            } else if (opts) {
+        const parsedQuestions = formObj.questions.map((qst) => {
+          switch (qst.type) {
+            case "composite":
+            case "same-answer":
+              return [...Array(qst.sub.length).fill(null)];
+            default:
               return null;
-            }
           }
-        );
+        });
 
         obj[key] = [...parsedQuestions];
         break;

@@ -2,14 +2,8 @@ import axios from "axios";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { useRef, useState } from "react";
-import {
-  MdAccessTime,
-  MdClose,
-  MdFilter,
-  MdFilterList,
-  MdSearch,
-} from "react-icons/md";
+import { useState } from "react";
+import { MdAccessTime, MdClose, MdFilterList, MdSearch } from "react-icons/md";
 import ReactPlayer from "react-player";
 
 import { Logo } from "../../assets";
