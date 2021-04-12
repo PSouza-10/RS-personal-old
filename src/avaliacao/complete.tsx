@@ -118,7 +118,7 @@ const CompleteForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const { data } = await axios.get("/forms");
+    const { data } = await axios.get("/forms/complete");
 
     return {
       props: {

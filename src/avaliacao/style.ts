@@ -38,6 +38,36 @@ export const Container = styled.main`
 
     a {
       margin: 01rem 5%;
+      padding: 1rem;
+      border-radius: 0.4rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      fill: var(--fg);
+      border: 1px solid var(--white-fade);
+      h4 {
+        color: inherit;
+        flex: 1;
+      }
+      transition: all 0.3s ease;
+
+      & > * {
+        transition: all 0.3s ease;
+      }
+      svg {
+        fill: inherit;
+        height: 1.3rem;
+        width: 1.3rem;
+      }
+      &:hover {
+        border-color: var(--primary);
+        svg {
+          fill: var(--primary);
+        }
+        h4 {
+          color: var(--primary);
+        }
+      }
     }
     a:first-child {
       margin-top: auto;

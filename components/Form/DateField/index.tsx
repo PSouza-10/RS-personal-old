@@ -37,6 +37,7 @@ export const DateField: React.FC<IDateField> = ({
   const handleCalendar = () => {
     const newVal = !calendarIsOpen;
     setIsOpen(newVal);
+
     const vw = Math.max(
       document.documentElement.clientWidth || 0,
       window.innerWidth || 0
