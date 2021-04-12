@@ -45,11 +45,11 @@ export const IdentificationForm: React.FC<IIdentification> = ({
 
   return (
     <IDFormContainer>
-      <p>Os dados inseridos aqui serão utilizados para um possível contato.</p>
       <FormField
         name="firstName"
         type="text"
         label="Nome"
+        id="firstName"
         autoFocus
         value={val.firstName}
         onChange={handleChange}
@@ -58,6 +58,7 @@ export const IdentificationForm: React.FC<IIdentification> = ({
       <FormField
         name="lastName"
         type="text"
+        id="lastName"
         label="Sobrenome"
         value={val.lastName}
         onChange={handleChange}
@@ -67,6 +68,7 @@ export const IdentificationForm: React.FC<IIdentification> = ({
         name="email"
         type="email"
         label="E-Mail"
+        id="email"
         validate={{
           validIf: "email",
         }}
@@ -87,6 +89,8 @@ export const IdentificationForm: React.FC<IIdentification> = ({
             null
           )
         }
+        id="birthDate"
+        name="birthDate"
         icon={<MdCake />}
         label="Data de Nascimento"
       />

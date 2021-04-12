@@ -111,6 +111,9 @@ export const PostCardContainer = styled.article<{ textExpanded: boolean }>`
   border-radius: 0.5em;
   overflow: hidden;
   flex-shrink: 0;
+  &:focus {
+    outline: 1px dotted var(--primary);
+  }
   figure {
     display: flex;
     justify-content: center;

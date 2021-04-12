@@ -22,6 +22,7 @@ export default createGlobalStyle`
     }
     :root {
       --primary : ${({ theme: { colors } }) => colors.primary};
+      --primary-fade : ${({ theme: { colors } }) => colors.primary + "80"} ;
       --error : #e22;
       --success : #4c7;
       --bgContrast :  ${({ theme: { colors } }) => colors.bgContrast};
@@ -93,6 +94,10 @@ export default createGlobalStyle`
         }
         p,label,input{
           font-size: 1rem;
+          
+        }
+        p{
+          line-height: 1.25;
         }
     
         

@@ -8,7 +8,9 @@ export const Radio = styled.label`
   cursor: pointer;
 
   input {
-    display: none;
+    opacity: 0;
+    width: 0;
+    height: 0;
   }
 
   h4 {
@@ -45,10 +47,18 @@ export const Radio = styled.label`
       transform: scale(1, 1) translate(-50%, -50%);
     }
   }
+  &:focus-within {
+    outline: 1px dotted var(--primary);
+  }
 `;
 
-export const RadioGroupContainer = styled.section`
+export const RadioGroupContainer = styled.fieldset`
   display: flex;
   gap: 1rem;
+  border: 1px dotted var(--primary-fade);
+  padding: 0.6rem;
+  legend {
+    font-weight: 550;
+  }
   flex-direction: column;
 `;

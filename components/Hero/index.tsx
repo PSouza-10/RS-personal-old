@@ -14,12 +14,12 @@ export function Hero() {
         </p>
         <span>
           <Link href="/avalicao" passHref>
-            <button className="button">Avaliação física gratuita </button>
+            <a className="button">Avaliação física gratuita </a>
           </Link>
         </span>
       </Call>
       <Image>
-        <img src="/trainer.jpg" alt="Banner" />
+        <img src="/banner.webp" alt="Personal trainer auxiliando cliente" />
       </Image>
     </Container>
   );

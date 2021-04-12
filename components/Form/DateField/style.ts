@@ -37,6 +37,7 @@ export const Container = styled.div`
     margin-right: 0.4em;
     fill: var(--primary);
     align-self: center;
+    cursor: pointer;
   }
   .calendar-input {
     flex: 1;

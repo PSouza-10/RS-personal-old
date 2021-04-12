@@ -77,9 +77,10 @@ export const Call = styled.article`
     &::after {
       position: absolute;
       content: "";
-      background-color: ${({ theme: { colors } }) => colors.secondary};
+      background-color: var(--primary);
+      opacity: 0.7;
       height: 6px;
-      bottom: -10%;
+      top: 115%;
       left: 0;
       right: 0;
       border-radius: 0.4em;

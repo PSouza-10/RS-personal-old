@@ -9,12 +9,29 @@ interface IDateField {
   value: Date;
   icon?: ReactElement;
   onChange: OnChangeDateCallback;
+  id?: string;
+  name?: string;
 }
+
+const ariaLabels = {
+  dayAriaLabel: "Digite um dia",
+  monthAriaLabel: "Digite um mês",
+  yearAriaLabel: "Digite um ano",
+  calendarAriaLabel: "Selecionar no calendário",
+  clearAriaLabel: "Limpar data selecionada",
+  navigationAriaLabel: "Próximo nível",
+  nextAriaLabel: "Próximo período",
+  next2AriaLabel: "Pular para frente",
+  prevAriaLabel: "Período anterior",
+  prev2AriaLabel: "Pular para trás",
+};
 export const DateField: React.FC<IDateField> = ({
   value,
   label,
   onChange,
   icon,
+  id,
+  name,
 }) => {
   const [calendarIsOpen, setIsOpen] = useState(false);
   const handleCalendar = () => {
@@ -41,7 +58,7 @@ export const DateField: React.FC<IDateField> = ({
           className: "dateField-icon",
         })}
       <span className="calendar-input">
-        <label htmlFor={label.replace(" ", "")} ref={datePickerRef}>
+        <label htmlFor={id} ref={datePickerRef}>
           {label}
         </label>
         <DatePicker
@@ -49,11 +66,13 @@ export const DateField: React.FC<IDateField> = ({
           onCalendarOpen={handleCalendar}
           onCalendarClose={handleCalendar}
           value={value}
-          name={label.replace(" ", "")}
+          name={name}
+          nativeInputAriaLabel={label}
           locale="pt-br"
           isOpen={calendarIsOpen}
           maxDate={new Date()}
           calendarIcon={<MdEvent />}
+          {...ariaLabels}
         />
       </span>
       <CloseCalendar visible={calendarIsOpen} onClick={handleCalendar} />

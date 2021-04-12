@@ -36,7 +36,6 @@ export const CompositeRadioForm: React.FC<ICompositeRadioForm> = ({
   };
   return (
     <FormContainer>
-      {content.description && <p>{content.description}</p>}
       {content.questions.map((question, qstIdx) => {
         const props = {
           question,

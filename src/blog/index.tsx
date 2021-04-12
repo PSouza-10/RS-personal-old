@@ -55,7 +55,7 @@ const PostCard: React.FC<{ post: Article; setTag: (tag: string) => void }> = ({
   const [textIsExpanded, setTextExpanded] = useState(false);
 
   return (
-    <PostCardContainer textExpanded={textIsExpanded}>
+    <PostCardContainer textExpanded={textIsExpanded} tabIndex={0}>
       <figure>
         {thumbnail.srcId === "Instagram" ? (
           <ReactPlayer url={thumbnail.url} wrapper={VContainer} />

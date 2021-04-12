@@ -71,12 +71,22 @@ const SimpleForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
   return (
     <Container className="page-container" ref={containerRef}>
       {currentPage === 0 ? (
-        <IdentificationForm
-          val={userInfo}
-          setVal={(value) => setUserInfo(value)}
-        />
+        <>
+          <h2 className="form-instructions" tabIndex={0}>
+            Os dados Inseridos aqui serão utilizados para um possível contato.
+          </h2>
+          <IdentificationForm
+            val={userInfo}
+            setVal={(value) => setUserInfo(value)}
+          />
+        </>
       ) : (
         <>
+          {forms[formComponents[currentPage]].description && (
+            <h2 className="form-instructions" tabIndex={0}>
+              {forms[formComponents[currentPage]].description}
+            </h2>
+          )}
           {/* {JSON.stringify(formValues[formComponents[currentPage]])} */}
           {buildFormPage(formComponents[currentPage])}
         </>

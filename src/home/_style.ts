@@ -22,8 +22,8 @@ export const Container = styled.main`
     display: flex;
     flex-direction: column;
     padding: 0 2vh;
-    button {
-      margin-bottom: 20px;
+    a {
+      margin-bottom: 0.5rem;
     }
   }
 
@@ -87,6 +87,12 @@ export const TrifectaWrapper = styled.section`
     font-size: 1.2rem;
     color: var(--primary);
     z-index: 3;
+    &:hover {
+      text-decoration: underline;
+    }
+    &:visited {
+      opacity: 0.7;
+    }
   }
 
   .word:nth-child(1) {

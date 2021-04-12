@@ -46,6 +46,11 @@ export const Container = styled.main`
       margin-bottom: auto;
     }
   }
+  .form-instructions {
+    color: var(--fg);
+    font-size: 1.1rem;
+    margin-top: 1rem;
+  }
 `;
 export const FormContainer = styled.form`
   display: flex;

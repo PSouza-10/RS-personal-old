@@ -91,6 +91,9 @@ export default css`
     background: transparent;
     padding: 4px 6px;
   }
+  .react-date-picker__button:focus {
+    outline: 1px dotted var(--primary);
+  }
   .react-date-picker__button svg {
     height: 19px;
     width: 19px;

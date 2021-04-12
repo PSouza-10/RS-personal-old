@@ -24,14 +24,14 @@ export default function Home() {
           mas sim o todo do indivíduo.
         </p>
         <nav>
-          <Link href="/explore/body">
-            <button className="button">Aprenda mais sobre o corpo</button>
+          <Link href="/explore/body" passHref>
+            <a className="button">Aprenda mais sobre o corpo</a>
           </Link>
-          <Link href="/explore/mind">
-            <button className="button">Aprenda mais sobre a mente</button>
+          <Link href="/explore/mind" passHref>
+            <a className="button">Aprenda mais sobre a mente</a>
           </Link>
-          <Link href="/explore/spirit">
-            <button className="button">Aprenda mais sobre o espírito</button>
+          <Link href="/explore/spirit" passHref>
+            <a className="button">Aprenda mais sobre o espírito</a>
           </Link>
         </nav>
       </section>

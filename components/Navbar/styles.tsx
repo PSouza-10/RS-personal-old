@@ -71,13 +71,17 @@ export const MenuContainer = styled.nav<WithOpen>`
   flex-direction: column;
 
   .navLink {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     text-align: center;
     padding: 0.2rem 0;
     transition: all 0.3s ease;
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: #fff1;
       color: var(--primary);
+    }
+    &:focus {
+      outline: 1px dotted var(--primary);
     }
   }
 
@@ -147,8 +151,8 @@ export const MenuContainer = styled.nav<WithOpen>`
 `;
 
 export const NavLogo = styled(Logo)`
-  height: 35px;
-  width: 30px;
+  height: 1.6rem;
+  width: auto;
   transform: rotate(-3deg) translateY(-6%);
   fill: var(--primary);
 `;

@@ -28,7 +28,6 @@ export const SameAnswerForm: React.FC<ICompositeRadioForm> = ({
 
   return (
     <FormContainer>
-      {content.description && <p>{content.description}</p>}
       {content.questions.map((question, qstIdx) => (
         <RadioGroup
           radioLabel={question}
