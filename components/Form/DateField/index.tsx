@@ -1,7 +1,7 @@
 import React, { ReactElement, useRef, useState } from "react";
 import { OnChangeDateCallback } from "react-calendar";
 import DatePicker from "react-date-picker/dist/entry.nostyle";
-import { MdEvent } from "react-icons/md";
+import { MdEvent, MdClose } from "react-icons/md";
 import { CloseCalendar, Container } from "./style";
 
 interface IDateField {
@@ -76,7 +76,9 @@ export const DateField: React.FC<IDateField> = ({
           {...ariaLabels}
         />
       </span>
-      <CloseCalendar visible={calendarIsOpen} onClick={handleCalendar} />
+      <CloseCalendar isVisible={calendarIsOpen} onClick={handleCalendar}>
+        <MdClose />
+      </CloseCalendar>
     </Container>
   );
 };

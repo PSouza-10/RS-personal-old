@@ -92,7 +92,7 @@ export const FormFieldContainer = styled.div<{ padding: number }>`
     pointer-events: none;
     bottom: 0;
     left: 0;
-
+    font-size: 0.9em;
     width: 100%;
     height: 100%;
     border-bottom: 1px solid #fff8;
@@ -139,7 +139,7 @@ export const FormFieldContainer = styled.div<{ padding: number }>`
   input:placeholder-shown + .field-label .field-content-name {
     transform: translateY(-2em);
     bottom: 0;
-    font-size: 0.8em;
+    font-size: 0.75em;
     color: ${({ color }) => color};
   }
   input:focus + .field-label {

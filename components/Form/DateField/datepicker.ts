@@ -57,19 +57,20 @@ export default css`
   .react-date-picker__inputGroup__divider {
     padding: 1px 0;
     white-space: pre;
+    font-size: 0.9em;
   }
   .react-date-picker__inputGroup__input {
     min-width: 0.54em;
     height: 100%;
     position: relative;
     padding: 0 1px;
-    font-size: 1em;
+    font-size: 0.9em;
     border: 0;
     background: none;
 
     box-sizing: content-box;
     -moz-appearance: textfield;
-    color: var(--white-fade);
+    color: inherit;
     transition: color 0.3s ease;
   }
 

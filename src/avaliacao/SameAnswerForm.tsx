@@ -21,7 +21,7 @@ export const SameAnswerForm: React.FC<ICompositeRadioForm> = ({
   ) => {
     let newVal = [...val];
 
-    newVal[questionIdx] = parseInt(e.target.value);
+    newVal[questionIdx] = parseFloat(e.target.value);
 
     setValue(newVal);
   };
@@ -30,7 +30,7 @@ export const SameAnswerForm: React.FC<ICompositeRadioForm> = ({
     <FormContainer>
       {content.questions.map((question, qstIdx) => (
         <RadioGroup
-          radioLabel={question}
+          radioLabel={qstIdx + 1 + ") - " + question}
           options={content.opts.map(([label, value], optIdx) => ({
             label,
             value,

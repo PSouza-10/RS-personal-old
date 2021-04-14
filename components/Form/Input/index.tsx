@@ -57,6 +57,7 @@ export const FormField: React.FC<InputProps> = ({
     email:
       "Endereço de email " +
       (validity?.stringHas?.email ? "válido" : "inválido"),
+    phone: "Número " + (validity?.stringHas?.phone ? "válido" : "inválido"),
     min: validate.min ? "Mínimo de " + validate.min + " caracteres" : null,
     max: validate.max ? "Máximo de " + validate.max + " caracteres" : null,
   };
@@ -88,18 +89,20 @@ export const FormField: React.FC<InputProps> = ({
     if (useCounter) {
       setLength(e.target.value.length);
     }
-
+    let newValidity: null | IValid = null;
+    let inputIsValid = null;
     if (Object.keys(validate).length > 0) {
       const val =
         inputProps.type === "number"
           ? parseInt(e.target.value)
           : e.target.value;
-      const newValidity = handleValidate(val, validate, validity);
+      newValidity = handleValidate(val, validate, validity);
       if (validity) {
         setValidity(newValidity);
+        inputIsValid = newValidity === null ? null : newValidity.isValid;
       }
     }
-    onChange && onChange(e, validity.isValid);
+    onChange && onChange(e, inputIsValid);
   };
   const inputPadding = (useCounter ? 1 : 0) + (useVisibility ? 1 : 0);
   const numOfvalidationItems = Object.keys(validity.stringHas || {}).length;
@@ -136,7 +139,7 @@ export const FormField: React.FC<InputProps> = ({
       >
         {inputProps.type === "tel" ? (
           <InputMask
-            mask="+55 99 99999-9999"
+            mask="+55 99 \99999-9999"
             maskChar=" "
             {...nativeInputProps}
           />

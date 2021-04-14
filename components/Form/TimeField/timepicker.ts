@@ -61,6 +61,7 @@ export default css`
     padding: 1px 0;
     white-space: pre;
     color: var(--white-fade);
+    font-size: 0.9em;
   }
   .react-time-picker__inputGroup__input {
     min-width: 0.54em;
@@ -70,7 +71,7 @@ export default css`
     border: 0;
     background: none;
     font: inherit;
-    font-size:1em;
+    font-size: 0.9em;
     color: inherit;
     box-sizing: content-box;
     -moz-appearance: textfield;

@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 import { RadioGroup } from "../../components/Form/Radio";
-import { FormVal, Form, Question } from "./types";
+import { FormVal, Form, Question, alphabet } from "./types";
 import { FormContainer } from "./style";
 interface ICompositeRadioForm {
   setValue: (val: FormVal) => any;
@@ -28,9 +28,9 @@ export const CompositeRadioForm: React.FC<ICompositeRadioForm> = ({
 
     if (subQstIdx !== null) {
       let subQstVal = newVal[questionIdx];
-      subQstVal[subQstIdx] = parseInt(e.target.value);
+      subQstVal[subQstIdx] = parseFloat(e.target.value);
     } else {
-      newVal[questionIdx] = parseInt(e.target.value);
+      newVal[questionIdx] = parseFloat(e.target.value);
     }
     setValue(newVal);
   };
@@ -85,10 +85,13 @@ const CompositeSubQuestion: React.FC<IQuestionComponent<"composite">> = ({
   const { sub, label } = question;
   return (
     <>
-      <h4>{label}</h4>
+      <h4>
+        {qstIdx + 1 + ") - "}
+        {label}
+      </h4>
       {sub.map((subQuestion, subQstIdx) => (
         <RadioGroup
-          radioLabel={subQuestion.label}
+          radioLabel={`${alphabet[subQstIdx]}) - ` + subQuestion.label}
           options={subQuestion.opts.map(([optLabel, value], optIdx) => ({
             id: `${formKey}-${qstIdx}-sub-${subQstIdx}-opt-${optIdx}`,
             label: optLabel,
@@ -116,10 +119,14 @@ const SameAnswerQuestion: React.FC<IQuestionComponent<"same-answer">> = ({
 
   return (
     <>
-      <h4>{label}</h4>
+      <h4>
+        {" "}
+        {qstIdx + 1 + ") - "}
+        {label}
+      </h4>
       {sub.map((subQuestion, subQstIdx) => (
         <RadioGroup
-          radioLabel={subQuestion}
+          radioLabel={`${alphabet[subQstIdx]}) - ` + subQuestion}
           options={opts.map(([optLabel, value], optIdx) => ({
             id: `${formKey}-${qstIdx}-sub-${subQstIdx}-opt-${optIdx}`,
             label: optLabel,
@@ -147,7 +154,7 @@ const SimpleQuestion: React.FC<IQuestionComponent<"simple">> = ({
 
   return (
     <RadioGroup
-      radioLabel={label}
+      radioLabel={qstIdx + 1 + ") - " + label}
       options={opts.map(([optLabel, value], optIdx) => ({
         id: `${formKey}-${qstIdx}-opt-${optIdx}`,
         value: value,

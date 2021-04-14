@@ -5,7 +5,7 @@ import { CompositeRadioForm } from "./CompositeRadioForm";
 import { IdentificationForm, IUserInfo } from "./Identification";
 import { SameAnswerForm } from "./SameAnswerForm";
 import { Container } from "./style";
-import { Form, IForms, IFormVal } from "./types";
+import { Form, IForms, IFormVal, FormVal } from "./types";
 import { getInitialValues } from "./utils";
 
 export type CompositeFormObj = { type: "composite" } & Form;
@@ -22,23 +22,31 @@ const CompleteForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
   const [userInfo, setUserInfo] = useState<IUserInfo>({
     email: "",
     sex: null,
-    birthDate: new Date(),
+    birthDate: null,
     birthTime: "",
     phone: "",
     socialName: "",
     firstName: "",
     lastName: "",
   });
+  const formComponents = ["identification", ...Object.keys(forms)];
+
+  const [formIsValid, setFormValid] = useState([
+    ...Array(formComponents.length).fill(false),
+  ]);
+
+  const onFormValueChange = (val: FormVal, key: string) => {
+    handleValidChange(!val.flat().includes(null), currentPage);
+    setFormValues({
+      ...formValues,
+      [key]: val,
+    });
+  };
   const buildFormPage = (key: string) => {
     if (forms[key].type === "composite") {
       return (
         <CompositeRadioForm
-          setValue={(val) =>
-            setFormValues({
-              ...formValues,
-              [key]: val,
-            })
-          }
+          setValue={(val) => onFormValueChange(val, key)}
           val={formValues[key]}
           content={forms[key] as CompositeFormObj}
           formKey={key}
@@ -47,12 +55,7 @@ const CompleteForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
     } else {
       return (
         <SameAnswerForm
-          setValue={(val) =>
-            setFormValues({
-              ...formValues,
-              [key]: val,
-            })
-          }
+          setValue={(val) => onFormValueChange(val, key)}
           val={formValues[key]}
           content={forms[key] as SameAnswerFormObj}
           formKey={key}
@@ -60,7 +63,6 @@ const CompleteForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
       );
     }
   };
-  const formComponents = ["identification", ...Object.keys(forms)];
 
   const containerRef = useRef<null | HTMLElement>(null);
 
@@ -69,18 +71,22 @@ const CompleteForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
       containerRef.current.scrollTo({ top: 0 });
     }
   }, [currentPage]);
+
+  const handleValidChange = (valid: boolean, idx: number) => {
+    let newValid = [...formIsValid];
+    newValid[idx] = valid;
+    setFormValid(newValid);
+  };
+
+  const isLastPage = currentPage === formComponents.length - 1;
   return (
     <Container className="page-container multipart-form" ref={containerRef}>
       {currentPage === 0 ? (
-        <>
-          <h2 className="form-instructions" tabIndex={0}>
-            Os dados Inseridos aqui serão utilizados para um possível contato.
-          </h2>
-          <IdentificationForm
-            val={userInfo}
-            setVal={(value) => setUserInfo(value)}
-          />
-        </>
+        <IdentificationForm
+          val={userInfo}
+          setFormValid={(newValid) => handleValidChange(newValid, 0)}
+          setVal={(value) => setUserInfo(value)}
+        />
       ) : (
         <>
           {forms[formComponents[currentPage]].description && (
@@ -102,14 +108,15 @@ const CompleteForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
             Anterior
           </button>
         )}
-        {currentPage === formComponents.length - 1 ? (
-          <button className="button">Enviar</button>
+
+        {!formIsValid[currentPage] ? (
+          <h4>Responda para prosseguir </h4>
         ) : (
           <button
             className="button"
-            onClick={() => setPage((page) => page + 1)}
+            onClick={() => (isLastPage ? null : setPage((page) => page + 1))}
           >
-            Próximo
+            {isLastPage ? "Enviar" : "Próximo"}
           </button>
         )}
       </section>

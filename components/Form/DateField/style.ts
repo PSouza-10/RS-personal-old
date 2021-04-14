@@ -1,14 +1,21 @@
-import { MdClose } from "react-icons/md";
 import styled, { css } from "styled-components";
 import calendar from "./calendar";
 import datepicker from "./datepicker";
-export const CloseCalendar = styled(MdClose)<{ visible: boolean }>`
-  height: 2em;
-  width: 2em;
+export const CloseCalendar = styled.button<{ isVisible: boolean }>`
+  font-size: 1.2rem;
+  svg {
+    height: 2em;
+    width: 2em;
+    fill: var(--fg);
+  }
+  background: none;
+  border: none;
   cursor: pointer;
-  visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
+  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
   &:hover {
-    fill: var(--primary);
+    svg {
+      fill: var(--primary);
+    }
   }
 
   position: fixed;
@@ -23,7 +30,7 @@ export const Container = styled.div`
   margin-top: 40px;
   display: flex;
 
-  font-size: 0.75em;
+  font-size: 1em;
   label {
     color: var(--white-fade);
 
@@ -48,6 +55,9 @@ export const Container = styled.div`
   &:focus-within .react-date-picker {
     color: #fff;
   }
+  label {
+    font-size: 0.8em;
+  }
   &:focus-within label {
     color: #f26e2c;
   }
@@ -64,12 +74,29 @@ export const Container = styled.div`
       }
       .react-calendar {
         position: fixed;
-        top: 0;
+        top: 55px;
         left: 0;
         right: 0;
         bottom: 0;
         width: auto !important;
       }
+      .react-date-picker--open
+        .react-date-picker__wrapper
+        .react-date-picker__inputGroup {
+        position: fixed;
+        top: 0;
+        z-index: 6 !important;
+
+        right: 0;
+        left: 0;
+        background-color: var(--detail);
+        color: var(--fg);
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
       ${CloseCalendar} {
         display: block;
       }

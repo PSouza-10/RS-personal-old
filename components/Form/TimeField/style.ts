@@ -28,7 +28,7 @@ export const Container = styled.div`
     color: var(--white-fade);
 
     transition: color 0.3s ease;
-    font-size: 0.7em;
+    font-size: 0.75em;
   }
   .timeField-icon {
     flex-shrink: 0;

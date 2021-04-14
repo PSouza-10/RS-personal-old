@@ -80,6 +80,7 @@ export const Container = styled.main`
     color: var(--fg);
     font-size: 1.1rem;
     margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   &.multipart-form {
     padding: 0.8rem;
@@ -94,16 +95,20 @@ export const FormContainer = styled.form`
 
   .subQuestion {
     margin-left: 1.5rem;
+    legend {
+      font-weight: 400;
+    }
   }
 `;
-export const IDFormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  padding: 2rem 1rem;
-  font-size: 1.2rem;
+export const IDFormContainer = styled.div`
+  padding: 1.2rem 1rem;
+  font-size: clamp(17px, 1.2rem, 22px);
   padding-bottom: 4rem;
-  gap: 1rem;
-
+  & > form {
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
   .identification-radio {
     border: none;
   }
@@ -120,7 +125,13 @@ export const IDFormContainer = styled.form`
   }
   .dateWrapper,
   .timeWrapper {
-    margin-top: 0.6rem;
-    margin-bottom: 0.3rem;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
   }
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      padding-right: 6rem;
+      padding-left: 6rem;
+    }
+  `}
 `;
