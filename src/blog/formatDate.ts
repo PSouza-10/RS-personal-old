@@ -5,6 +5,7 @@ interface FormatObj {
 }
 
 const format: FormatObj = {
+  other: "dd/MM/yyyy",
   lastWeek: "EEEE hh:mm",
   yesterday: "'Ontem às' hh:mm",
   today: "'Hoje às' hh:mm",

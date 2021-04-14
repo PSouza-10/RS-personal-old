@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://rs-personal-server.herokuapp.com";
+axios.defaults.baseURL = "https://rs-personal-server.herokuapp.com/public";
 function App({ Component, pageProps }) {
   const router = useRouter();
   const path = router.pathname;

@@ -10,6 +10,7 @@ export const Container = styled.div<IContainer>`
   margin: 0 5%;
   align-items: flex-end;
   flex-wrap: wrap;
+  font-size: 1em;
   position: relative;
   caret-color: ${({ valid }) => (valid ? "var(--primary)" : "var(--error)")};
   ul {
@@ -29,7 +30,7 @@ export const Container = styled.div<IContainer>`
   li {
     height: 1em;
     padding: 0.1em;
-    font-size: 0.6em;
+    font-size: 0.9em;
   }
   .valid {
     color: var(--success);
@@ -39,8 +40,8 @@ export const Container = styled.div<IContainer>`
   }
   .input-icon {
     flex-shrink: 0;
-    height: 0.9em;
-    width: 0.9em;
+    height: 1.2em;
+    width: 1.2em;
     margin-right: 0.4em;
     fill: ${({ valid }) => (valid ? "var(--primary)" : "var(--error)")};
     cursor: pointer;
@@ -55,7 +56,8 @@ export const Container = styled.div<IContainer>`
 
 export const FormFieldContainer = styled.div<{ padding: number }>`
   flex: 1;
-  height: calc(var(--input-base) * 5.7);
+  height: 2.2em;
+
   color: white;
   position: relative;
 
@@ -81,7 +83,7 @@ export const FormFieldContainer = styled.div<{ padding: number }>`
     padding-top: 0.3em;
     /* padding-top: calc((var(--input-base) * 3.6)); */
 
-    font-size: 0.7em;
+    font-size: 1em;
     color: white;
     padding-right: ${({ padding }) => `${padding * 1.2}em`};
   }
@@ -108,7 +110,7 @@ export const FormFieldContainer = styled.div<{ padding: number }>`
     transform-origin: right;
   }
   .field-content-name {
-    font-size: 0.9em;
+    font-size: 1em;
     position: absolute;
     color: #fff8;
     bottom: calc(var(--input-base) * 0.4);
@@ -135,7 +137,7 @@ export const FormFieldContainer = styled.div<{ padding: number }>`
   input:valid + .field-label .field-content-name,
   input:not([value=""]) + .field-label .field-content-name,
   input:placeholder-shown + .field-label .field-content-name {
-    transform: translateY(-140%);
+    transform: translateY(-2em);
     bottom: 0;
     font-size: 0.8em;
     color: ${({ color }) => color};

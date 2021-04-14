@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
-import { MdCake } from "react-icons/md";
+import {
+  MdAccessTime,
+  MdCake,
+  MdPhone,
+  MdSentimentSatisfied,
+} from "react-icons/md";
 import { AiOutlineIdcard } from "react-icons/ai";
 import { DateField, FormField } from "../../components";
 import { IDFormContainer } from "./style";
+import { RadioGroup } from "../../components/Form/Radio";
+import { TimeField } from "../../components/Form/TimeField";
+import { format } from "date-fns";
 
 export interface IUserInfo {
   lastName: string;
@@ -12,6 +20,8 @@ export interface IUserInfo {
   email: string;
   birthDate: Date;
   birthTime: string;
+  socialName: string;
+  sex: 1 | 2 | null;
 }
 
 interface IIdentification {
@@ -31,9 +41,15 @@ export const IdentificationForm: React.FC<IIdentification> = ({
   });
 
   const handleChange = ({ target: { value, name } }, valid: boolean | null) => {
+    let newVal = value;
+
+    if (name === "sex") {
+      newVal = parseInt(value);
+    }
+
     setVal({
       ...val,
-      [name]: value,
+      [name]: newVal,
     });
     if (valid !== null) {
       setValid({
@@ -64,6 +80,15 @@ export const IdentificationForm: React.FC<IIdentification> = ({
         onChange={handleChange}
         icon={<AiOutlineIdcard />}
       />
+      {/* <FormField
+        name="socialName"
+        type="text"
+        id="socialName"
+        label="Nome Social (Opcional)"
+        value={val.socialName}
+        onChange={handleChange}
+        icon={<MdSentimentSatisfied />}
+      /> */}
       <FormField
         name="email"
         type="email"
@@ -75,6 +100,15 @@ export const IdentificationForm: React.FC<IIdentification> = ({
         value={val.email}
         onChange={handleChange}
         icon={<IoMdMail />}
+      />
+      <FormField
+        id="phone"
+        name="phone"
+        label="Número de celular"
+        value={val.phone}
+        type="tel"
+        onChange={handleChange}
+        icon={<MdPhone />}
       />
       <DateField
         value={val.birthDate}
@@ -93,6 +127,44 @@ export const IdentificationForm: React.FC<IIdentification> = ({
         name="birthDate"
         icon={<MdCake />}
         label="Data de Nascimento"
+      />
+      <TimeField
+        value={val.birthTime}
+        onChange={(newTime) =>
+          handleChange(
+            {
+              target: {
+                name: "birthTime",
+                value: newTime,
+              },
+            },
+            null
+          )
+        }
+        id="birthTime"
+        name="birthTime"
+        icon={<MdAccessTime />}
+        label="Horário de Nascimento (Opcional)"
+      />
+      <RadioGroup
+        name="sex"
+        radioLabel="Sexo"
+        className="identification-radio"
+        options={[
+          {
+            label: "Masculino",
+            value: 1,
+            id: "male",
+            checked: val.sex === 1,
+          },
+          {
+            label: "Feminino",
+            value: 2,
+            id: "female",
+            checked: val.sex === 2,
+          },
+        ]}
+        onChange={(e) => handleChange(e, null)}
       />
     </IDFormContainer>
   );

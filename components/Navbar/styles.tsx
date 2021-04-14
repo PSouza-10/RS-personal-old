@@ -159,7 +159,7 @@ export const NavLogo = styled(Logo)`
 
 export const Container = styled.header`
   display: flex;
-  padding: 0.1rem 0.3rem;
+  padding: 0.1rem 0.5rem;
   justify-content: space-between;
   align-items: center;
   position: sticky;

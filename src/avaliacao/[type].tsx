@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { useEffect, useRef, useState } from "react";
 import { CompositeRadioForm } from "./CompositeRadioForm";
 import { IdentificationForm, IUserInfo } from "./Identification";
@@ -10,7 +10,7 @@ import { getInitialValues } from "./utils";
 
 export type CompositeFormObj = { type: "composite" } & Form;
 export type SameAnswerFormObj = { type: "same-answer" } & Form;
-const SimpleForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
+const CompleteForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
   const [formValues, setFormValues] = useState<IFormVal>({});
   const [currentPage, setPage] = useState(0);
   useEffect(() => {
@@ -21,10 +21,11 @@ const SimpleForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
 
   const [userInfo, setUserInfo] = useState<IUserInfo>({
     email: "",
-
+    sex: null,
     birthDate: new Date(),
     birthTime: "",
     phone: "",
+    socialName: "",
     firstName: "",
     lastName: "",
   });
@@ -69,7 +70,7 @@ const SimpleForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
     }
   }, [currentPage]);
   return (
-    <Container className="page-container" ref={containerRef}>
+    <Container className="page-container multipart-form" ref={containerRef}>
       {currentPage === 0 ? (
         <>
           <h2 className="form-instructions" tabIndex={0}>
@@ -118,7 +119,7 @@ const SimpleForm: React.FC<{ forms: IForms | null }> = ({ forms }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const { data } = await axios.get("/forms/simple");
+    const { data } = await axios.get("/forms/" + context.params.type);
 
     return {
       props: {
@@ -134,4 +135,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     };
   }
 };
-export default SimpleForm;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{ params: { type: "complete" } }, { params: { type: "simple" } }],
+    fallback: false,
+  };
+};
+export default CompleteForm;

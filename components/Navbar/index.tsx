@@ -23,7 +23,7 @@ export function Navbar() {
       <Link href="/">
         <HeaderBrand onClick={handleMenu}>
           {/* Prevent huge black logo on page load */}
-          <NavLogo />
+          <NavLogo className="logo-style-load" />
           Personal
         </HeaderBrand>
       </Link>

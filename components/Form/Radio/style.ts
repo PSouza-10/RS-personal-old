@@ -4,7 +4,7 @@ export const Radio = styled.label`
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 1em;
+  font-size: inherit;
   cursor: pointer;
 
   input {
@@ -15,6 +15,7 @@ export const Radio = styled.label`
 
   h4 {
     font-weight: normal;
+    font-size: 0.9em;
     height: 100%;
   }
 
@@ -54,11 +55,12 @@ export const Radio = styled.label`
 
 export const RadioGroupContainer = styled.fieldset`
   display: flex;
-  gap: 1rem;
+  gap: 1em;
   border: 1px dotted var(--primary-fade);
   padding: 0.6rem;
   legend {
     font-weight: 550;
+    font-size: 1em;
   }
   flex-direction: column;
 `;

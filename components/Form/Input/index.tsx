@@ -3,14 +3,15 @@ import { useState } from "react";
 import { FormFieldContainer, Container } from "./style";
 import handleValidate, { IValid } from "./validate";
 import { IoMdEyeOff, IoMdEye } from "react-icons/io";
-
+import InputMask from "react-input-mask";
 export interface ValidationProp {
   validIf?: string;
   min?: number;
   max?: number;
 }
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   icon?: ReactElement;
   subtitle?: string;
@@ -102,6 +103,24 @@ export const FormField: React.FC<InputProps> = ({
   };
   const inputPadding = (useCounter ? 1 : 0) + (useVisibility ? 1 : 0);
   const numOfvalidationItems = Object.keys(validity.stringHas || {}).length;
+  const nativeInputProps = {
+    name,
+    required: true,
+    value,
+    onChange: handleChange,
+    autoComplete: "off",
+    onFocus: (e) => {
+      setFocused(true);
+      onFocus && onFocus(e);
+    },
+    onBlur: (e) => {
+      setFocused(false);
+      onBlur && onBlur(e);
+    },
+    ref: inputRef,
+    "data-testid": testId,
+    ...inputProps,
+  };
   return (
     <Container
       isFocused={isFocused}
@@ -115,24 +134,15 @@ export const FormField: React.FC<InputProps> = ({
         color={validity.isValid ? "var(--primary)" : "var(--error)"}
         padding={inputPadding}
       >
-        <input
-          name={name}
-          required
-          value={value}
-          onChange={handleChange}
-          autoComplete="off"
-          onFocus={(e) => {
-            setFocused(true);
-            onFocus && onFocus(e);
-          }}
-          onBlur={(e) => {
-            setFocused(false);
-            onBlur && onBlur(e);
-          }}
-          ref={inputRef}
-          data-testid={testId}
-          {...inputProps}
-        />
+        {inputProps.type === "tel" ? (
+          <InputMask
+            mask="+55 99 99999-9999"
+            maskChar=" "
+            {...nativeInputProps}
+          />
+        ) : (
+          <input {...nativeInputProps} />
+        )}
         <label htmlFor={inputProps.id} className="field-label">
           <span className="field-content-name">{label}</span>
           {useCounter && <span className="field-content-length">{length}</span>}

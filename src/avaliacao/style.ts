@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.main`
   color: var(--fg);
-  max-height: calc(100vh - 140px);
-  min-height: calc(100vh - 140px);
+  max-height: calc(100vh - 110px);
+  min-height: calc(100vh - 110px);
   ${({ theme: { breakpoints } }) => css`
     @media (min-width: ${breakpoints.md}) {
       padding: 0 10vw;
@@ -81,6 +81,9 @@ export const Container = styled.main`
     font-size: 1.1rem;
     margin-top: 1rem;
   }
+  &.multipart-form {
+    padding: 0.8rem;
+  }
 `;
 export const FormContainer = styled.form`
   display: flex;
@@ -97,11 +100,27 @@ export const IDFormContainer = styled.form`
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   padding-bottom: 4rem;
   gap: 1rem;
+
+  .identification-radio {
+    border: none;
+  }
   .input-container,
-  .dateWrapper {
+  .dateWrapper,
+  .timeWrapper {
     margin: 0 0;
+  }
+  .input-container,
+  .dateWrapper,
+  .timeWrapper,
+  .identification-radio {
+    font-size: 1em;
+  }
+  .dateWrapper,
+  .timeWrapper {
+    margin-top: 0.6rem;
+    margin-bottom: 0.3rem;
   }
 `;
