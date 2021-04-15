@@ -20,12 +20,12 @@ const FormIntro: React.FC = () => {
             <MdArrowForward />
           </a>
         </Link>
-        <Link href="/avaliacao/complete" passHref>
+        {/* <Link href="/avaliacao/complete" passHref>
           <a className="form-opt" aria-labelledby="av_completa">
             <h4 id="av_completa">Avaliação Completa</h4>
             <MdArrowForward />
           </a>
-        </Link>
+        </Link> */}
       </div>
     </Container>
   );

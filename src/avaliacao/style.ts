@@ -135,3 +135,25 @@ export const IDFormContainer = styled.div`
     }
   `}
 `;
+
+export const FormFinished = styled.main`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: calc(100vh - 50px);
+  color: var(--primary);
+  p {
+    max-width: 30vw;
+    color: var(--primary);
+    font-size: 1.4rem;
+    word-wrap: normal;
+  }
+  svg {
+    height: 5rem;
+    width: 5rem;
+    fill: var(--primary);
+  }
+`;
