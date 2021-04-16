@@ -32,13 +32,13 @@ export async function sendFormValues(values) {
   try {
     const { data } = await axios.post("/forms/simple", values);
 
-    return { msg: data.msg, error: false, loading: false };
+    return { msg: data.msg, error: false };
   } catch (e) {
     console.error(e);
     if (e.response?.data?.error) {
-      return { msg: e.response.data.error.msg, error: true, loading: false };
+      return { msg: e.response.data.error.msg, error: true };
     } else {
-      return { msg: "Ocorreu um erro :(", error: true, loading: false };
+      return { msg: "Ocorreu um erro :(", error: true };
     }
   }
 }

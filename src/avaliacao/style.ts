@@ -33,11 +33,18 @@ export const Container = styled.main`
   }
 
   .form-intro {
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     height: 100%;
     p {
       margin-top: 1rem;
       line-height: 1.25;
+      span {
+        color: var(--primary);
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
 
     a {
@@ -144,20 +151,25 @@ export const FormFinished = styled.main`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
+  padding: 5vh 0;
+  justify-content: center;
+  gap: 1.3rem;
   height: calc(100vh - 50px);
   color: var(--primary);
   p {
-    max-width: 30vw;
+    max-width: min(1000px, 75vw);
     color: var(--primary);
     font-size: 1.4rem;
     word-wrap: normal;
+    text-align: center;
   }
   svg {
-    height: 5rem;
-    width: 5rem;
+    height: 7rem;
+    width: 7rem;
     fill: var(--primary);
+  }
+  .button {
+    font-size: 1.4rem;
   }
 `;

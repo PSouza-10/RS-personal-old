@@ -13,8 +13,10 @@ import {
   updateFormStorage,
 } from "./utils";
 import format from "date-fns/format";
-import { MdCheck } from "react-icons/md";
+import { MdCheck, MdClose } from "react-icons/md";
 import { Loading } from "../../components";
+import Link from "next/link";
+import Head from "next/head";
 export type CompositeFormObj = { type: "composite" } & Form;
 export type SameAnswerFormObj = { type: "same-answer" } & Form;
 
@@ -42,10 +44,8 @@ const CompleteForm: React.FC<{
   const [formFinished, setFormFinished] = useState({
     msg: "",
     error: false,
-    loading: false,
   });
-  const setLoading = (val: boolean) =>
-    setFormFinished({ ...formFinished, loading: val });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (forms) {
@@ -121,6 +121,7 @@ const CompleteForm: React.FC<{
   const isLastPage = currentPage === formComponents.length - 1;
 
   const sendResponse = async () => {
+    setLoading(true);
     const user = {
       ...userInfo,
       birthDate: format(userInfo.birthDate, "dd/MM/yyyy"),
@@ -128,23 +129,29 @@ const CompleteForm: React.FC<{
     };
     const response = await sendFormValues({ user, ...formValues });
     setFormFinished(response);
+    setLoading(false);
   };
-
+  if (loading) {
+    return <Loading wholePage />;
+  }
   if (formFinished.msg) {
     return (
       <FormFinished>
-        {!formFinished.error && <MdCheck />}
+        {formFinished.error ? <MdClose /> : <MdCheck />}
         <p>{formFinished.msg}</p>
-        {formFinished.error && (
+        {formFinished.error ? (
           <button className="button" onClick={sendResponse}>
             Tentar enviar novamente
           </button>
+        ) : (
+          <Link href="/" passHref>
+            <a className="button">Voltar a página inicial</a>
+          </Link>
         )}
       </FormFinished>
     );
-  } else if (formFinished.loading) {
-    return <Loading wholePage />;
   }
+
   const highlightEmptyRegisterInput = () => {
     const id = Object.keys(userInfo).find((key) => !userInfo[key]);
     const input = document.getElementById(id);
@@ -152,6 +159,9 @@ const CompleteForm: React.FC<{
   };
   return (
     <Container className="page-container multipart-form" ref={containerRef}>
+      <Head>
+        <title>Avaliação - RS Personal</title>
+      </Head>
       {currentPage === 0 ? (
         <IdentificationForm
           val={userInfo}
