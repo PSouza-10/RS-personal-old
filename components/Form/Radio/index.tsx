@@ -48,7 +48,7 @@ export const RadioGroup: React.FC<IRadioGroup> = ({
   onChange,
 }) => {
   return (
-    <RadioGroupContainer className={className}>
+    <RadioGroupContainer className={className} id={name}>
       <legend>{radioLabel}</legend>
       {options.map((props, idx) => (
         <RadioInput

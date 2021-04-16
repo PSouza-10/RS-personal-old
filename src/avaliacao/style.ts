@@ -26,6 +26,10 @@ export const Container = styled.main`
     button:last-child {
       margin-left: auto;
     }
+    h4:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 
   .form-intro {

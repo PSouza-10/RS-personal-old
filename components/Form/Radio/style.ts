@@ -62,5 +62,8 @@ export const RadioGroupContainer = styled.fieldset`
     font-weight: 550;
     font-size: 1em;
   }
+  &.highlight {
+    outline: 2px solid var(--error);
+  }
   flex-direction: column;
 `;

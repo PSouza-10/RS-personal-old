@@ -19,7 +19,7 @@ export interface IUserInfo {
   email: string;
   birthDate: Date | null;
   birthTime: string;
-  socialName: string;
+
   sex: 1 | 2 | null;
 }
 
@@ -55,17 +55,18 @@ export const IdentificationForm: React.FC<IIdentification> = ({
       ...val,
       [name]: newVal,
     });
+
     let valueIsValid = false;
     if (value || (typeof value === "number" && value === 0)) {
       valueIsValid = true;
     }
-    const newState = {
+    const newValidState = {
       ...isValid,
       [name]: valid === null ? valueIsValid : valid,
     };
-    setValid(newState);
-
-    const formIsValid = !Object.values(newState).includes(false);
+    setValid(newValidState);
+    const { birthTime, ...vals } = newValidState;
+    const formIsValid = !Object.values(vals).includes(false);
 
     setFormValid(formIsValid);
   };
@@ -75,7 +76,12 @@ export const IdentificationForm: React.FC<IIdentification> = ({
       <h2 className="form-instructions" tabIndex={0}>
         Os dados Inseridos aqui serão utilizados para um possível contato.
       </h2>
-      <form>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        onKeyDown={(e) =>
+          e.key === "Enter" || !e.key ? e.preventDefault() : null
+        }
+      >
         <FormField
           name="firstName"
           type="text"
