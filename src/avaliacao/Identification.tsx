@@ -20,7 +20,7 @@ export interface IUserInfo {
   birthDate: Date | null;
   birthTime: string;
 
-  sex: 1 | 2 | null;
+  sex: "Masculino" | "Feminino" | null;
 }
 
 interface IIdentification {
@@ -46,10 +46,6 @@ export const IdentificationForm: React.FC<IIdentification> = ({
 
   const handleChange = ({ target: { value, name } }, valid: boolean | null) => {
     let newVal = value;
-
-    if (name === "sex") {
-      newVal = parseInt(value);
-    }
 
     setVal({
       ...val,
@@ -177,15 +173,15 @@ export const IdentificationForm: React.FC<IIdentification> = ({
           options={[
             {
               label: "Masculino",
-              value: 1,
+              value: "Masculino",
               id: "male",
-              checked: val.sex === 1,
+              checked: val.sex === "Masculino",
             },
             {
               label: "Feminino",
-              value: 2,
+              value: "Feminino",
               id: "female",
-              checked: val.sex === 2,
+              checked: val.sex === "Feminino",
             },
           ]}
           onChange={(e) => handleChange(e, null)}
