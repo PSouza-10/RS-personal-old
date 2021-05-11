@@ -62,7 +62,7 @@ export const Call = styled.article`
   flex-direction: column;
   flex: 1;
   order: 2;
-  padding: 25px 16px;
+  padding: 1rem;
   align-self: stretch;
   background-color: ${({ theme: { colors } }) => colors.detail};
 
@@ -72,23 +72,15 @@ export const Call = styled.article`
   animation-iteration-count: 1;
   animation-timing-function: ease;
   h2 {
-    text-align: left;
-    position: relative;
-    &::after {
-      position: absolute;
-      content: "";
-      background-color: var(--primary);
-      opacity: 0.7;
-      height: 6px;
-      top: 115%;
-      left: 0;
-      right: 0;
-      border-radius: 0.4em;
-    }
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
   }
 
   p {
     text-align: justify;
+    font-size: 1.12rem;
     margin: 12px 0;
     margin-left: 4px;
     padding: 0 4px;

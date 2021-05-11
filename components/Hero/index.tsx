@@ -6,20 +6,18 @@ export function Hero() {
   return (
     <Container>
       <Call>
-        <h2>Consultoria voltada ao aprendizado</h2>
+        <h2>
+        Emagreça  de  5 a 15 quilos  em  até  90 dias  de  forma saudável  e  sem  dietas restritivas através  da reprogramação do seu estilo de vida
+
+        </h2>
         <p>
-          Sua saúde e estética vem das suas escolhas, mas pode ser que você não
-          saiba quais escolhas fazer para ter resultados. Por isso o objetivo
-          aqui é te ensinar, e auxiliar em seu crescimento pessoal.
+          Você  é  capaz  de  conquistar  o  corpo  que  sempre  sonhou  ter,  só  depende  de  você.
         </p>
-        <span>
-          <Link href="/avaliacao" passHref>
-            <a className="button">Avaliação física gratuita </a>
-          </Link>
-        </span>
+
       </Call>
+      
       <Image>
-        <img src="/banner.webp" alt="Personal trainer auxiliando cliente" />
+        <img src="/banner.png" alt="Cliente vendo resultado após 90 dias de foco" />
       </Image>
     </Container>
   );
