@@ -3,7 +3,9 @@ import styled, { css } from "styled-components";
 export const Container = styled.main`
   display: flex;
   flex-direction: column;
-
+  p {
+    line-height: 1.25;
+  }
   .explore {
     padding-top: 1rem;
 
@@ -23,35 +25,47 @@ export const Container = styled.main`
 
         text-align: center;
         font-size: 0.9rem;
-        color: #FAFAFA;
+        color: #fafafa;
 
         outline: none;
-        cursor: pointer;        
+        cursor: pointer;
 
         border-bottom: 2px solid rgba(229, 229, 229, 0.33);
         transition: border-bottom 0.2s;
 
         &:hover {
-          border-bottom: 2px solid #F26E2C;
+          border-bottom: 2px solid #f26e2c;
         }
       }
     }
 
     > .how-it-works {
-      padding: 1.3rem 0.5rem;
+      padding: 1.3rem 1rem;
       margin-bottom: 1.8rem;
       text-align: right;
 
       > .card {
         margin-bottom: 1.5rem;
-
-        > h3, p {
-          color: #FFF;
+        > h3:after {
+          content: "";
+          position: absolute;
+          top: 110%;
+          left: 0;
+          right: 0;
+          opacity: 0.8;
+          background-color: var(--primary);
+          height: 0.2em;
+          width: 70%;
+        }
+        > h3,
+        p {
+          position: relative;
+          color: #fff;
           text-align: justify;
         }
 
         > p {
-          margin-top: 0.4rem;
+          margin-top: 1rem;
           margin-left: 0.6rem;
         }
       }
@@ -59,41 +73,34 @@ export const Container = styled.main`
       > .button-container {
         display: flex;
         flex-direction: column;
-        align-items: flex-end;
+        align-items: center;
 
-
-        > p {
-          font-size: 0.7rem;
-          font-weight: 700;
-          color: #FFF;
-          margin-bottom: 0.3rem;
-          text-align: center;
+        & > * {
+          color: var(--fg);
         }
-
-        > button {
-          max-width: 462px;
-          width: 100%;
-          padding: 0.4rem 0;
-
-          display: flex;
-          align-content: right;
-          align-items: center;
-          justify-content: center;
+        > h3 {
           text-align: center;
-
+          margin-bottom: 1rem;
+        }
+        > button {
+          display: flex;
+          width: 90%;
+          font-size: 1.1rem;
+          span {
+            flex: 1;
+            padding: 0.4rem 0.5rem;
+            transition: all 0.2s;
+            &:hover {
+              background-color: #0002;
+            }
+          }
           border: none;
 
-          font-size: 0.8rem;
           font-weight: 600;
-          background: #F26E2C;
-          color: #FFF;
+          background: var(--primary);
+          color: var(--fg);
 
           cursor: pointer;
-          transition: opacity 0.2s;
-
-          &:hover {
-            opacity: 0.8;
-          }
         }
       }
     }
@@ -104,14 +111,13 @@ export const Container = styled.main`
       align-items: center;
       text-align: center;
 
-      color: #FFF;
+      color: #fff;
       font-weight: 500;
 
       margin-bottom: 1.8rem;
-
-      > p {
+      h4 {
+        font-size: 1.3rem;
         margin-bottom: 1.5rem;
-        font-weight: 700;
       }
 
       > .container {
@@ -133,9 +139,8 @@ export const Container = styled.main`
             border-radius: 20px;
             margin-bottom: 1rem;
           }
-          
           > p {
-            font-size: 0.8rem;
+            font-size: 1.2em;
           }
         }
       }
@@ -147,13 +152,14 @@ export const Container = styled.main`
       align-items: center;
       text-align: center;
 
-      color: #FFF;
+      color: #fff;
 
       margin-bottom: 1.8rem;
 
-      > p {
+      > h4 {
         margin-bottom: 1.5rem;
         font-weight: 700;
+        font-size: 1.3rem;
       }
 
       > .wrapper {
@@ -164,14 +170,15 @@ export const Container = styled.main`
         justify-content: center;
 
         > img {
-          width: 340px;
-          height: 350px;
+          max-height: 20rem;
+          width: auto;
 
           margin-bottom: 1rem;
-        } 
+        }
 
         > p {
-          max-width: 340px;
+          font-size: 1.1rem;
+          padding: 0 1rem;
         }
       }
     }
@@ -195,12 +202,11 @@ export const Container = styled.main`
             flex-direction: row;
             justify-content: space-between;
             gap: 30px;
-            
 
             > img {
               width: 100%;
               height: 100%;
-            } 
+            }
           }
         }
       }
