@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "./_style";
 import { Hero } from "../../components";
-
+import Link from "next/link";
 import Head from "next/head";
 
 export default function Home() {
@@ -55,10 +55,12 @@ export default function Home() {
 
           <section className="button-container">
             <h3>Clique no botão abaixo e faça o seu checkup gratuito.</h3>
-            <button>
-              {" "}
-              <span>Quero fazer o meu Checkup Funcional</span>
-            </button>
+            <Link href="/avaliacao" passHref>
+              <a>
+                {" "}
+                <span>Quero fazer o meu Checkup Funcional</span>
+              </a>
+            </Link>
           </section>
         </div>
 
@@ -67,21 +69,21 @@ export default function Home() {
 
           <div className="container">
             <section className="history-card">
-              <img src="/success.png" alt="moça" />
+              <img src="/success.png" alt="teste" />
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
                 odio, nisi eum eveniet similique totam suscipit dolorem ducimus,{" "}
               </p>
             </section>
             <section className="history-card">
-              <img src="/success.png" alt="moça" />
+              <img src="/success.png" alt="teste" />
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
                 odio, nisi eum eveniet similique totam suscipit dolorem ducimus,{" "}
               </p>
             </section>
             <section className="history-card">
-              <img src="/success.png" alt="moça" />
+              <img src="/success.png" alt="teste" />
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
                 odio, nisi eum eveniet similique totam suscipit dolorem ducimus,

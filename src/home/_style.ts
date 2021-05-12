@@ -42,7 +42,6 @@ export const Container = styled.main`
     > .how-it-works {
       padding: 1.3rem 1rem;
       margin-bottom: 1.8rem;
-      text-align: right;
 
       > .card {
         margin-bottom: 1.5rem;
@@ -82,7 +81,7 @@ export const Container = styled.main`
           text-align: center;
           margin-bottom: 1rem;
         }
-        > button {
+        > a {
           display: flex;
           width: 90%;
           font-size: 1.1rem;
@@ -90,6 +89,7 @@ export const Container = styled.main`
             flex: 1;
             padding: 0.4rem 0.5rem;
             transition: all 0.2s;
+            text-align: center;
             &:hover {
               background-color: #0002;
             }
