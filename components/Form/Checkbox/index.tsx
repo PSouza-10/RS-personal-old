@@ -1,18 +1,21 @@
 import { Container } from "./style";
 import React from "react";
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface CheckBoxProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   checked: boolean;
-  onCheck: (checked: boolean) => any;
+
   label: string | JSX.Element;
   [x: string]: any;
 }
-
-export const Checkbox: React.FC<Props> = ({
+export interface CheckBoxPropsWithOnChecked extends CheckBoxProps {
+  onCheck: (checked: boolean) => any;
+}
+export const Checkbox: React.FC<CheckBoxPropsWithOnChecked> = ({
   checked,
   onCheck,
   label,
-  name,
+
   ...otherProps
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +26,6 @@ export const Checkbox: React.FC<Props> = ({
     <Container className="checkbox-container">
       <input
         type="checkbox"
-        name={name}
         onChange={handleChange}
         checked={checked}
         {...otherProps}
