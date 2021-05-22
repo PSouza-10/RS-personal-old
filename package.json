@@ -11,6 +11,7 @@
     "@types/date-fns": "^2.6.0",
     "axios": "^0.21.1",
     "date-fns": "^2.19.0",
+    "framer-motion": "^4.1.17",
     "next": "10.0.6",
     "react": "17.0.1",
     "react-date-picker": "^8.0.7",

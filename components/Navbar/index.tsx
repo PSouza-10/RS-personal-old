@@ -34,9 +34,9 @@ export function Navbar() {
             Blog
           </a>
         </Link>
-        <Link href="/avaliacao" passHref>
+        <Link href="/checkup" passHref>
           <a className="navLink" onClick={handleMenu}>
-            Avaliação
+            Checkup
           </a>
         </Link>
         {/* {!id && (

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   position: relative;
+
   * {
     transition: all 0.2s ease;
   }
@@ -43,7 +44,7 @@ const Container = styled.div`
     background-color: var(--bg);
   }
 `;
-interface DropdownOption
+export interface DropdownOption
   extends React.DetailedHTMLProps<
     React.OptionHTMLAttributes<HTMLOptionElement>,
     HTMLOptionElement
@@ -62,8 +63,10 @@ export const Dropdown: React.FC<DropdownProps> = ({ options, ...props }) => {
   return (
     <Container className="dropdown">
       <select {...props}>
-        {options.map(({ label, ...optProps }) => (
-          <option {...optProps}>{label}</option>
+        {options.map(({ label, ...optProps }, idx) => (
+          <option {...optProps} key={idx}>
+            {label}
+          </option>
         ))}
       </select>
       <span className="select-arrow">

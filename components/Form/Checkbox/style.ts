@@ -5,6 +5,7 @@ export const Container = styled.div`
   align-items: center;
   margin: 0 1em;
   color: var(--fg);
+  font-size: 1em;
   input {
     opacity: 0;
     visibility: hidden;
@@ -12,6 +13,7 @@ export const Container = styled.div`
   }
   .checkbox {
     position: relative;
+    font-size: 1.3em;
     border: 1px solid var(--white-fade);
     width: 1em;
     height: 1em;
@@ -35,6 +37,9 @@ export const Container = styled.div`
     transition: transform 0.2s ease;
     visibility: hidden;
     transform: translate(-50%, -50%) rotateZ(45deg) scale(10);
+  }
+  .checkbox + label {
+    font-size: 1.1em;
   }
   input:checked + .checkbox {
     background-color: var(--primary);

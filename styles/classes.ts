@@ -15,7 +15,7 @@ export default css`
     font-size: inherit;
 
     &:not(:disabled):hover,
-    &:focus {
+    &:not(:disabled):focus {
       background-color: ${({ theme: { colors } }) => colors.primary};
       color: #fff;
     }

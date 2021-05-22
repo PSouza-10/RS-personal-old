@@ -55,7 +55,7 @@ export default function Home() {
 
           <section className="button-container">
             <h3>Clique no botão abaixo e faça o seu checkup gratuito.</h3>
-            <Link href="/avaliacao" passHref>
+            <Link href="/checkup" passHref>
               <a>
                 {" "}
                 <span>Quero fazer o meu Checkup Funcional</span>
