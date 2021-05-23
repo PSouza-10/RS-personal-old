@@ -4,6 +4,7 @@ export type ConfirmQuestion = {
 };
 export type ListQuestion = {
   type: "list";
+  limit?: number;
 };
 
 export type CheckListQuestion = {
@@ -49,3 +50,4 @@ export type FormState = QuestionState[];
 export interface CheckupState {
   [x: string]: FormState;
 }
+export type TPaginate = (newDirection: number) => void;

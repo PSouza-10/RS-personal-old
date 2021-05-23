@@ -1,4 +1,4 @@
-import { SetStateAction } from "react";
+import { MouseEventHandler, SetStateAction } from "react";
 import styled, { css } from "styled-components";
 
 const Container = styled.div<{ nItems: number }>`
@@ -40,6 +40,10 @@ export interface ClosedQuestionOption
     HTMLButtonElement
   > {
   value: any;
+  onValueChange?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    value: any
+  ) => any;
   label: string;
 }
 export interface ClosedQuestionProps {
@@ -54,9 +58,12 @@ export const ClosedQuestion: React.FC<ClosedQuestionProps> = ({
 }) => {
   return (
     <Container nItems={options.length}>
-      {options.map(({ label, value, ...props }, idx) => (
+      {options.map(({ label, value, onValueChange, ...props }, idx) => (
         <button
-          onClick={() => setValue(value)}
+          onClick={(e) => {
+            setValue(value);
+            onValueChange && onValueChange(e, value);
+          }}
           className={currentValue === value ? "selected-opt" : ""}
           {...props}
           key={idx}

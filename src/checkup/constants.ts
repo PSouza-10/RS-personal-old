@@ -1,4 +1,5 @@
-import { Forms } from "./types";
+import { ClosedQuestionOption } from "../../components/Form/ClosedQuestion";
+import { Forms, TPaginate } from "./types";
 
 export const forms: Forms = {
   diseaseHistory: [
@@ -30,6 +31,7 @@ export const forms: Forms = {
         {
           predicate: "Quem tem essas doenças em sua família?",
           type: "list",
+          limit: 3,
         },
       ],
     },
@@ -125,13 +127,19 @@ export const timeMeasures = [
   },
 ];
 
-export const YesNoOptions = [
-  {
-    label: "Não",
-    value: false,
-  },
-  {
-    label: "Sim",
-    value: true,
-  },
-];
+type YesNoWithPaginate = (paginate: TPaginate) => ClosedQuestionOption[];
+
+export const YesNoOptions: YesNoWithPaginate = (paginate) => {
+  return [
+    {
+      label: "Não",
+      value: false,
+      onValueChange: (e, val) => paginate(1),
+    },
+    {
+      label: "Sim",
+      value: true,
+      onValueChange: (e, val) => paginate(1),
+    },
+  ];
+};
