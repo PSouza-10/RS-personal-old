@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { forms } from "./constants";
 import { CheckupContainer, CheckupFormContainer } from "./style";
 import { getInitialState, getNewCurrent, validateSwipe } from "./utils";
-import { Forms, TPaginate } from "./types";
+import { CheckupState, Forms, TPaginate } from "./types";
 import { AnimationHandler } from "./AnimationHandler";
 import { QuestionRenderer } from "./QuestionRenderer";
 
@@ -23,7 +23,7 @@ export const Controller: React.FC = () => {
   const [formState, setFormState] = useState(getInitialState(forms).state);
   const [canSwipe, setSwipe] = useState({
     backward: false,
-    forward: true,
+    forward: false,
   });
 
   const qstData = forms[currentForm][currentQuestion[0]];
@@ -55,7 +55,35 @@ export const Controller: React.FC = () => {
     const newSwipeState = validateSwipe(current, formState);
     setSwipe(newSwipeState);
   }, [current, formState]);
+  useEffect(() => {
+    if (!current.currentSubQuestion) {
+      switch (qstData.type) {
+        case "choose":
+          paginate(1);
+          break;
+        case "confirm":
+          if (qstState.value !== null) {
+            paginate(1);
+          }
 
+          break;
+        default:
+          return;
+      }
+    }
+  }, [formState]);
+
+  function getPreviousQuestionAnswer() {
+    switch (qstData.type) {
+      case "checklist":
+      case "list":
+        return "";
+      case "confirm":
+        return qstState.value ? "Sim" : "Não";
+      default:
+        return qstState.value;
+    }
+  }
   return (
     <CheckupContainer>
       <CheckupFormContainer>
@@ -70,14 +98,20 @@ export const Controller: React.FC = () => {
         >
           {subQuestionIsNull ? (
             <>
-              <h1>{qstData.predicate}</h1>
+              <h1>
+                {typeof qstData.predicate === "string"
+                  ? qstData.predicate
+                  : qstData.predicate(formState)}
+              </h1>
             </>
           ) : (
             <>
               <h4>
-                {qstData.predicate}
+                {typeof qstData.predicate === "string"
+                  ? qstData.predicate
+                  : qstData.predicate(formState)}
                 <br></br>
-                <strong> Sua Resposta: {qstState.value ? "Sim" : "Não"}</strong>
+                <strong> Sua Resposta: {getPreviousQuestionAnswer()}</strong>
               </h4>
               <h1>{qstData.nested[currentSubQuestion[0]].predicate}</h1>
             </>
@@ -86,7 +120,6 @@ export const Controller: React.FC = () => {
             question={{ state: qstState, data: qstData }}
             setValue={setQuestionState}
             sub={currentSubQuestion}
-            paginate={paginate}
           />
         </AnimationHandler>
 

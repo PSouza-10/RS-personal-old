@@ -5,3 +5,4 @@ export { EditableList } from "./EditableList";
 export { UnitField } from "./UnitField";
 export { CheckList } from "./CheckList";
 export { ClosedQuestion } from "./ClosedQuestion";
+export { TextArea } from "./TextArea";

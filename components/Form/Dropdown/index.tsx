@@ -9,9 +9,9 @@ const Container = styled.div`
   }
   select {
     background-color: var(--bg);
-    width: 5rem;
+    font-size: 1em;
+    width: 5em;
     color: var(--fg);
-    font-size: 1rem;
     font-weight: 400;
     box-shadow: none;
     border: 1px solid var(--white-fade);

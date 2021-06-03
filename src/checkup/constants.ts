@@ -1,5 +1,36 @@
 import { ClosedQuestionOption } from "../../components/Form/ClosedQuestion";
+import { DropdownOption } from "../../components/Form/Dropdown";
 import { Forms, TPaginate } from "./types";
+export const alcoholUnits: DropdownOption[] = [
+  {
+    value: "Copos",
+    label: "Copo(s)",
+  },
+  {
+    value: "Garrafas",
+    label: "Garrafa(s)",
+  },
+  {
+    value: "Dose",
+    label: "Dose(s)",
+  },
+];
+export const timeMeasures = [
+  {
+    value: "Dias",
+    label: "Dias",
+  },
+
+  {
+    value: "Meses",
+    label: "Meses",
+  },
+
+  {
+    value: "Anos",
+    label: "Anos",
+  },
+];
 
 export const forms: Forms = {
   diseaseHistory: [
@@ -92,7 +123,7 @@ export const forms: Forms = {
         {
           predicate: "A quanto tempo ocorreu a fratura?",
           type: "unit",
-          unit: "time",
+          unit: timeMeasures,
         },
       ],
     },
@@ -108,38 +139,124 @@ export const forms: Forms = {
       ],
     },
   ],
+  lifeHabits: [
+    {
+      type: "text",
+      predicate: "Qual é o seu ramo de atuação profissional?",
+    },
+    {
+      type: "confirm",
+      negative: true,
+      predicate: (state) =>
+        `Trabalha atualmente como ${state["lifeHabits"][0].value}?`,
+      nested: [
+        {
+          type: "text",
+          predicate:
+            "Como se sente por não atuar profissionalmente no seu ramo?",
+        },
+      ],
+    },
+    {
+      type: "confirm",
+      predicate: "Você é Fumante?",
+      nested: [
+        {
+          type: "unit",
+          unit: timeMeasures,
+          predicate: "A quanto tempo?",
+        },
+        {
+          type: "choose",
+          predicate: "Até quantos cigarros fuma por dia?",
+          opts: [
+            { label: "Até 10", value: 2 },
+            { label: "Até 20", value: 4 },
+            { label: "Até 30", value: 8 },
+            { label: "30 ou mais", value: 10 },
+          ],
+        },
+      ],
+    },
+    {
+      type: "confirm",
+      predicate: "Você ingere bebida alcoólica?",
+      nested: [
+        {
+          type: "unit",
+          predicate: "Que quantidade?",
+          unit: alcoholUnits,
+        },
+        {
+          type: "choose",
+          predicate: "Com que frequência?",
+          opts: [
+            { label: "Semanalmente", value: "Semanalmente" },
+            { label: "Diariamente", value: "Diariamente" },
+            { label: "Anualmente", value: "Anualmente" },
+            { label: "Mensalmente", value: "Mensalmente" },
+          ],
+        },
+      ],
+    },
+    {
+      type: "range",
+      id: "tv",
+      predicate: "Quantas horas passa diante da TV em média, por dia?",
+      mask: "9",
+      nested: [
+        {
+          type: "list",
+          predicate: "Que tipo de programas assiste?",
+        },
+      ],
+    },
+    {
+      type: "confirm",
+      predicate: "Costuma acordar a noite para urinar?",
+      nested: [
+        {
+          type: "confirm",
+          predicate: "Acorda para urinar mais de uma vez?",
+        },
+      ],
+    },
+    {
+      type: "list",
+      predicate: "Qual ou quais gêneros de música costuma ouvir?",
+    },
+
+    {
+      type: "confirm",
+      predicate: "Costuma acordar a noite para beber água?",
+      nested: [
+        {
+          type: "confirm",
+          predicate: "Acorda para tomar água mais de uma vez?",
+        },
+      ],
+    },
+  ],
 };
 
-export const timeMeasures = [
+export const YesNoOptions = [
   {
-    value: "Dias",
-    label: "Dias",
+    label: "Não",
+    value: false,
   },
-
   {
-    value: "Meses",
-    label: "Meses",
-  },
-
-  {
-    value: "Anos",
-    label: "Anos",
+    label: "Sim",
+    value: true,
   },
 ];
 
-type YesNoWithPaginate = (paginate: TPaginate) => ClosedQuestionOption[];
-
-export const YesNoOptions: YesNoWithPaginate = (paginate) => {
-  return [
-    {
-      label: "Não",
-      value: false,
-      onValueChange: (e, val) => paginate(1),
-    },
-    {
-      label: "Sim",
-      value: true,
-      onValueChange: (e, val) => paginate(1),
-    },
-  ];
-};
+export const YesNoOptionsReversed = [
+  {
+    label: "Não",
+    value: true,
+  },
+  {
+    label: "Sim",
+    value: false,
+  },
+];

@@ -1,18 +1,18 @@
-import { MouseEventHandler, SetStateAction } from "react";
+import { SetStateAction } from "react";
 import styled, { css } from "styled-components";
 
 const Container = styled.div<{ nItems: number }>`
-  display: grid;
+  display: flex;
   gap: 1em;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  align-items: center;
+  flex-direction: column;
   flex: 1;
   height: 100%;
-  justify-content: center;
+
   button {
     background-color: var(--bgContrast);
-    font-size: 2em;
+    font-size: clamp(19px, 2em, 22px);
     text-align: center;
+    white-space: normal;
     transition: all 0.2s ease;
     padding: 0.6em 0.6em;
     font-weight: 500;
@@ -57,7 +57,7 @@ export const ClosedQuestion: React.FC<ClosedQuestionProps> = ({
   currentValue,
 }) => {
   return (
-    <Container nItems={options.length}>
+    <Container nItems={options.length} className="closed-question-container">
       {options.map(({ label, value, onValueChange, ...props }, idx) => (
         <button
           onClick={(e) => {

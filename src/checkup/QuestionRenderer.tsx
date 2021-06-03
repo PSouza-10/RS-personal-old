@@ -3,10 +3,11 @@ import {
   ClosedQuestion,
   EditableList,
   FormField,
+  TextArea,
   UnitField,
 } from "../../components";
 import { CheckOption } from "../../components/Form/CheckList";
-import { timeMeasures, YesNoOptions } from "./constants";
+import { timeMeasures, YesNoOptions, YesNoOptionsReversed } from "./constants";
 import { Question, QuestionState, TPaginate } from "./types";
 
 export interface IQuestionRenderer {
@@ -16,14 +17,12 @@ export interface IQuestionRenderer {
   };
   sub?: null | [number, number];
   setValue: (newValue: any) => void;
-  paginate: TPaginate;
 }
 
 export const QuestionRenderer: React.FC<IQuestionRenderer> = ({
   question,
   sub,
   setValue,
-  paginate,
 }) => {
   const state = question.state;
   const value = sub !== null ? state.nested[sub[0]] : state.value;
@@ -33,7 +32,15 @@ export const QuestionRenderer: React.FC<IQuestionRenderer> = ({
       return (
         <ClosedQuestion
           currentValue={value}
-          options={YesNoOptions(paginate)}
+          options={YesNoOptions}
+          setValue={setValue}
+        />
+      );
+    case "choose":
+      return (
+        <ClosedQuestion
+          currentValue={value}
+          options={data.opts}
           setValue={setValue}
         />
       );
@@ -58,7 +65,7 @@ export const QuestionRenderer: React.FC<IQuestionRenderer> = ({
       );
     case "text":
       return (
-        <FormField
+        <TextArea
           onChange={(e) => setValue(e.target.value)}
           value={value as string}
         />
@@ -67,8 +74,17 @@ export const QuestionRenderer: React.FC<IQuestionRenderer> = ({
       return (
         <UnitField
           setValue={setValue}
-          unit={timeMeasures}
+          unit={data.unit}
           value={value as string}
+        />
+      );
+    case "range":
+      return (
+        <FormField
+          mask={data.mask}
+          onChange={(e) => setValue(e.target.value)}
+          value={value as string}
+          type="text"
         />
       );
   }

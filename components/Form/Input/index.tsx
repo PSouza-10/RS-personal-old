@@ -20,6 +20,7 @@ export interface InputProps
   useCounter?: boolean;
   useVisibility?: boolean;
   testId?: string;
+  mask?: string;
   [x: string]: any;
 }
 
@@ -36,6 +37,7 @@ export const FormField: React.FC<InputProps> = ({
   useCounter = false,
   useVisibility = false,
   testId = "",
+  mask,
   ...inputProps
 }) => {
   const [isFocused, setFocused] = useState(false);
@@ -137,9 +139,9 @@ export const FormField: React.FC<InputProps> = ({
         color={validity.isValid ? "var(--primary)" : "var(--error)"}
         padding={inputPadding}
       >
-        {inputProps.type === "tel" ? (
+        {inputProps.type === "tel" || mask ? (
           <InputMask
-            mask="+55 99 \99999-9999"
+            mask={mask || "+55 99 99999-9999"}
             maskChar=" "
             {...nativeInputProps}
           />

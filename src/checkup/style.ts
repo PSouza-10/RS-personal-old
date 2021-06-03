@@ -32,7 +32,9 @@ export const CheckupFormContainer = styled.section`
     > h1 {
       margin: 1em 0;
     }
-
+    .closed-question-container {
+      font-size: 0.8rem;
+    }
     .unitInput {
       display: flex;
       justify-content: center;

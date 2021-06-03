@@ -1,25 +1,35 @@
 import { forms } from "./constants";
 import {
   Question,
-  FormState,
+  IAdjacent,
   QuestionState,
   TQuestionValue,
   Forms,
   CheckupState,
+  ICommandTree,
+  CommandMap,
+  CheckListQuestion,
 } from "./types";
-import { IPageState, IAnimationHandler } from "./";
+import { IPageState } from "./";
+import { IAnimationHandler } from "./AnimationHandler";
+import { Navigator } from "./Navigator";
+import { CheckOption } from "../../components/Form/CheckList";
 const getDataType = (qst: Question): TQuestionValue => {
   switch (qst.type) {
     case "checklist":
       return qst.items.map((item) => ({ label: item, checked: false }));
     case "confirm":
+    case "choose":
       return null;
+
     case "list":
       return [];
     case "text":
       return "";
     case "unit":
-      return `1 Meses`;
+      return ``;
+    case "range":
+      return "";
     default:
       false;
   }
@@ -56,6 +66,27 @@ export function getInitialState(forms: Forms): {
 }
 const formNames: string[] = Object.keys(forms);
 
+function getSubQuestionAnswerValidity(
+  current: IPageState,
+  ans: TQuestionValue
+) {
+  const { currentForm, currentQuestion, currentSubQuestion } = current;
+
+  const question =
+    forms[currentForm][currentQuestion[0]].nested[currentSubQuestion[0]];
+
+  switch (question.type) {
+    case "checklist":
+      return (ans as CheckOption[]).map(({ checked }) => checked).includes(true)
+        ? true
+        : null;
+    case "list":
+      return (ans as string[]).length > 0 ? true : null;
+    default:
+      return true;
+  }
+}
+
 export function validateSwipe(
   current: IPageState,
   state: CheckupState
@@ -66,7 +97,10 @@ export function validateSwipe(
 
   const answer = subQuestionIsNull
     ? state[currentForm][currentQuestion[0]].value
-    : state[currentForm][currentQuestion[0]].nested[currentSubQuestion[0]];
+    : getSubQuestionAnswerValidity(
+        current,
+        state[currentForm][currentQuestion[0]].nested[currentSubQuestion[0]]
+      );
 
   const cantGoBackwards =
     currentForm === formNames[0] &&
@@ -79,13 +113,30 @@ export function validateSwipe(
     (subQuestionIsNull ||
       currentSubQuestion[0] ===
         forms[currentForm][currentQuestion[0]].nested.length - 1);
+  console.log(answer);
+  const cantGoForward =
+    ([null, "", []] as any[]).includes(answer) || isLastQuestion;
 
-  const cantGoForward = [null, "", []].includes(answer) || isLastQuestion;
-  console.log({ current, state });
   return {
     backward: !cantGoBackwards,
     forward: !cantGoForward,
   };
+}
+
+export function getCommand(tree: ICommandTree): CommandMap {
+  if (tree.if) {
+    if (typeof tree.then === "string") {
+      return tree.then;
+    } else {
+      return getCommand(tree.then as ICommandTree);
+    }
+  } else if (tree.else) {
+    if (typeof tree.else === "string") {
+      return tree.else;
+    } else {
+      return getCommand(tree.else as ICommandTree);
+    }
+  }
 }
 
 export function getNewCurrent(
@@ -93,127 +144,42 @@ export function getNewCurrent(
   current: IPageState,
   formState: CheckupState
 ): IPageState {
-  const { currentForm, currentQuestion, currentSubQuestion } = current;
-  const subQuestionIsNull = currentSubQuestion === null;
-  const currentFormData = forms[currentForm];
-  let newCurrent = {
-    ...current,
+  const navigator = new Navigator(current, formState);
+  const newState = navigator.getQuestion(direction > 0 ? "next" : "previous");
+
+  return newState;
+}
+
+export function getNavigatorData(
+  current: IPageState,
+  formState: CheckupState
+): IAdjacent {
+  const previous = forms[current.currentForm][current.currentQuestion[0] - 1]
+    ? {
+        data: forms[current.currentForm][current.currentQuestion[0] - 1],
+        state: formState[current.currentForm][current.currentQuestion[0] - 1],
+      }
+    : null;
+  const next = forms[current.currentForm][current.currentQuestion[0] + 1]
+    ? {
+        data: forms[current.currentForm][current.currentQuestion[0] + 1],
+        state: formState[current.currentForm][current.currentQuestion[0] + 1],
+      }
+    : null;
+  let navigatorData: IAdjacent = {
+    current: {
+      data: forms[current.currentForm][current.currentQuestion[0]],
+      state: formState[current.currentForm][current.currentQuestion[0]],
+    },
   };
-  const nextForm = formNames.find(
-    (n, idx) => formNames[idx + direction] === currentForm
-  ) as keyof Forms;
-  const nextSubQuestion = subQuestionIsNull
-    ? 0
-    : currentSubQuestion[0] + direction;
 
-  let sequence = [];
-  const nextQuestion = currentQuestion[0] + direction;
-  const stateOfForm = formState[currentForm];
-  if (subQuestionIsNull) {
-    sequence.push("No Subquestion");
-
-    const qst = currentFormData[currentQuestion[0]];
-    const qstState = stateOfForm[currentQuestion[0]];
-
-    if (direction < 0) {
-      if (stateOfForm[currentQuestion[0] - 1].value) {
-        sequence.push("Previous has subquestion");
-        newCurrent = {
-          ...newCurrent,
-          currentQuestion: [nextQuestion, direction],
-          currentSubQuestion: [
-            stateOfForm[nextQuestion].nested.length - 1,
-            direction,
-          ],
-        };
-      } else {
-        sequence.push("Previous does not have subquestion");
-        newCurrent = {
-          ...newCurrent,
-          currentQuestion: [nextQuestion, direction],
-          currentSubQuestion: null,
-        };
-      }
-    } else {
-      switch (qst.type) {
-        case "confirm":
-          if (qstState.value) {
-            newCurrent = {
-              ...newCurrent,
-              currentSubQuestion: [nextSubQuestion, direction],
-            };
-          } else {
-            newCurrent = {
-              ...newCurrent,
-              currentQuestion: [nextQuestion, direction],
-            };
-          }
-        default:
-          false;
-      }
-    }
-  } else {
-    if (direction > 0) {
-      if (
-        currentSubQuestion[0] ===
-        currentFormData[currentQuestion[0]].nested.length - 1
-      ) {
-        sequence.push("Last Subquestion of Group");
-        if (currentFormData.length - 1 === currentQuestion[0]) {
-          sequence.push("Last Question of Form");
-          newCurrent = {
-            currentForm: nextForm,
-            currentQuestion: [0, 0],
-            currentSubQuestion: null,
-          };
-        } else {
-          sequence.push("Next Question");
-          // if (
-          //   stateOfForm[nextQuestion].value &&
-          //   currentFormData[nextQuestion].type === "confirm" &&
-          //   currentFormData[nextQuestion].nested
-          // ) {
-          //   newCurrent = {
-          //     ...newCurrent,
-          //     currentQuestion: [nextQuestion, direction],
-          //     currentSubQuestion: [
-          //       currentFormData[nextQuestion].nested.length - 1,
-          //       direction,
-          //     ],
-          //   };
-          // } else {
-          newCurrent = {
-            ...newCurrent,
-            currentQuestion: [nextQuestion, direction],
-            currentSubQuestion: null,
-          };
-          // }
-        }
-      } else {
-        sequence.push("Next SubQuestion");
-        newCurrent = {
-          ...newCurrent,
-          currentSubQuestion: [nextSubQuestion, direction],
-        };
-      }
-    } else {
-      if (currentSubQuestion[0] === 0) {
-        sequence.push("First Subquestion of Group");
-
-        newCurrent = {
-          ...newCurrent,
-          currentQuestion: [currentQuestion[0], direction],
-          currentSubQuestion: null,
-        };
-      } else {
-        sequence.push("Previous SubQuestion");
-        newCurrent = {
-          ...newCurrent,
-          currentSubQuestion: [nextSubQuestion, direction],
-        };
-      }
-    }
+  if (previous) {
+    navigatorData.previous = previous;
   }
-  // console.log(sequence);
-  return newCurrent;
+  if (next) {
+    navigatorData.next = next;
+  }
+  console.log(navigatorData);
+
+  return navigatorData;
 }
