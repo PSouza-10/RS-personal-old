@@ -268,6 +268,7 @@ export const forms: Forms = {
     {
       predicate: "Você tem um sono tranquilo?",
       type: "confirm",
+      negative: true,
       nested: [{ type: "text", predicate: "Como se comporta dormindo?" }],
     },
     {
