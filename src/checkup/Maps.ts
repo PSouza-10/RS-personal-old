@@ -17,13 +17,17 @@ export const getCommandTree: ICommandTreeGetter = {
             (c.question.isBool?.negative && !c.question.isBool?.answer),
           then: "child",
           else: {
-            if: c.question.isLastOfForm,
-            then: {
-              if: c.form.isLastForm,
-              then: "finish",
-              else: "next_form",
+            if: c.question.isFormDefining,
+            then: "next_form",
+            else: {
+              if: c.question.isLastOfForm,
+              then: {
+                if: c.form.isLastForm,
+                then: "finish",
+                else: "next_form",
+              },
+              else: "next_question",
             },
-            else: "next_question",
           },
         },
         else: "child",
@@ -64,7 +68,11 @@ export const getCommandTree: ICommandTreeGetter = {
       then: {
         if: c.form?.isFirstForm,
         then: "nothing",
-        else: "previous_form",
+        else: {
+          if: c.question.shouldJumpToFirstOfLastForm,
+          then: "first_of_previous_form",
+          else: "previous_form",
+        },
       },
       else: {
         if: c.question.previous?.hasNested,

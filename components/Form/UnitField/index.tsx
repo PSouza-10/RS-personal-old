@@ -42,7 +42,7 @@ export const UnitField: React.FC<UnitFieldProps> = ({
     let newStr = "";
     console.log(e);
     if (field === "input") {
-      newStr = `${newValue} ${currentUnit}}`;
+      newStr = `${newValue} ${currentUnit}`;
     } else {
       newStr = `${currentNumber} ${newValue}`;
     }

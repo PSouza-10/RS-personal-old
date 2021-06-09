@@ -1,10 +1,11 @@
-import { useEffect, useLayoutEffect, useState } from "react";
-import { forms } from "./constants";
+import { useEffect, useState } from "react";
+import { forms } from "./form";
 import { CheckupContainer, CheckupFormContainer } from "./style";
 import { getInitialState, getNewCurrent, validateSwipe } from "./utils";
-import { CheckupState, Forms, TPaginate } from "./types";
+import { Forms, TPaginate } from "./types";
 import { AnimationHandler } from "./AnimationHandler";
 import { QuestionRenderer } from "./QuestionRenderer";
+import { DebugController } from "./DebugController";
 
 export interface IPageState {
   currentForm: keyof Forms;
@@ -56,20 +57,20 @@ export const Controller: React.FC = () => {
     setSwipe(newSwipeState);
   }, [current, formState]);
   useEffect(() => {
-    if (!current.currentSubQuestion) {
-      switch (qstData.type) {
-        case "choose":
-          paginate(1);
-          break;
-        case "confirm":
-          if (qstState.value !== null) {
-            paginate(1);
-          }
+    let qst = subQuestionIsNull
+      ? qstData
+      : forms[currentForm][currentQuestion[0]].nested[currentSubQuestion[0]];
 
-          break;
-        default:
-          return;
-      }
+    switch (qst.type) {
+      case "choose":
+      case "confirm":
+        if (qstState.value !== null) {
+          paginate(1);
+        }
+
+        break;
+      default:
+        return;
     }
   }, [formState]);
 
@@ -84,6 +85,8 @@ export const Controller: React.FC = () => {
         return qstState.value;
     }
   }
+  const [visible, setVisible] = useState(false);
+  const toggle = () => setVisible(!visible);
   return (
     <CheckupContainer>
       <CheckupFormContainer>
@@ -98,6 +101,7 @@ export const Controller: React.FC = () => {
         >
           {subQuestionIsNull ? (
             <>
+              {qstData.skipIf && qstData.skipIf(formState) ? paginate(1) : null}
               <h1>
                 {typeof qstData.predicate === "string"
                   ? qstData.predicate
@@ -131,6 +135,9 @@ export const Controller: React.FC = () => {
           >
             Anterior
           </button>
+          <button className="button" onClick={toggle}>
+            Inspecionar
+          </button>
           <button
             disabled={!canSwipe.forward}
             className="button"
@@ -140,6 +147,11 @@ export const Controller: React.FC = () => {
           </button>
         </span>
       </CheckupFormContainer>
+      <DebugController
+        visible={visible}
+        toggle={toggle}
+        setCurrent={setCurrent}
+      />
     </CheckupContainer>
   );
 };

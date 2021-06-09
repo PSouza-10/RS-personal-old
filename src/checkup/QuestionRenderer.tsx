@@ -7,8 +7,8 @@ import {
   UnitField,
 } from "../../components";
 import { CheckOption } from "../../components/Form/CheckList";
-import { timeMeasures, YesNoOptions, YesNoOptionsReversed } from "./constants";
-import { Question, QuestionState, TPaginate } from "./types";
+import { YesNoOptions } from "./constants";
+import { Question, QuestionState } from "./types";
 
 export interface IQuestionRenderer {
   question: {
@@ -78,13 +78,12 @@ export const QuestionRenderer: React.FC<IQuestionRenderer> = ({
           value={value as string}
         />
       );
-    case "range":
+    case "number":
       return (
         <FormField
-          mask={data.mask}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setValue(parseInt(e.target.value))}
           value={value as string}
-          type="text"
+          type="number"
         />
       );
   }

@@ -20,7 +20,7 @@ export interface InputProps
   useCounter?: boolean;
   useVisibility?: boolean;
   testId?: string;
-  mask?: string;
+  mask?: string | RegExp;
   [x: string]: any;
 }
 

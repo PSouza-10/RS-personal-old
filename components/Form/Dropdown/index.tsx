@@ -10,7 +10,7 @@ const Container = styled.div`
   select {
     background-color: var(--bg);
     font-size: 1em;
-    width: 5em;
+    min-width: 100%;
     color: var(--fg);
     font-weight: 400;
     box-shadow: none;
@@ -31,7 +31,7 @@ const Container = styled.div`
     position: absolute;
     right: 1px;
     top: 1px;
-    bottom: 1px;
+    bottom: 2px;
     min-width: 20px;
     display: flex;
     align-items: center;

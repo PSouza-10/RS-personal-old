@@ -52,3 +52,38 @@ export const CheckupFormContainer = styled.section`
     background-color: var(--detail);
   }
 `;
+
+export const DebugControllerContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+  max-height: calc(100% - 50px);
+  overflow-y: auto;
+  color: var(--fg);
+  span {
+    display: flex;
+    .dropdown {
+      flex: 1;
+    }
+  }
+  p {
+    cursor: pointer;
+    list-style-position: inside;
+    &:hover {
+      text-decoration: underline;
+      color: var(--primary);
+    }
+  }
+  > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    > ol,
+    li ul {
+      margin-left: 1.5rem;
+    }
+  }
+`;

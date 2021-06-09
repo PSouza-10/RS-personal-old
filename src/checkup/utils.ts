@@ -1,4 +1,4 @@
-import { forms } from "./constants";
+import { forms } from "./form";
 import {
   Question,
   IAdjacent,
@@ -27,8 +27,8 @@ const getDataType = (qst: Question): TQuestionValue => {
     case "text":
       return "";
     case "unit":
-      return ``;
-    case "range":
+      return ` ${qst.unit[0].label}`;
+    case "number":
       return "";
     default:
       false;
@@ -66,14 +66,12 @@ export function getInitialState(forms: Forms): {
 }
 const formNames: string[] = Object.keys(forms);
 
-function getSubQuestionAnswerValidity(
-  current: IPageState,
-  ans: TQuestionValue
-) {
+function getQuestionAnswerValidity(current: IPageState, ans: TQuestionValue) {
   const { currentForm, currentQuestion, currentSubQuestion } = current;
-
-  const question =
-    forms[currentForm][currentQuestion[0]].nested[currentSubQuestion[0]];
+  const subQuestionIsNull = currentSubQuestion === null;
+  const question = subQuestionIsNull
+    ? forms[currentForm][currentQuestion[0]]
+    : forms[currentForm][currentQuestion[0]].nested[currentSubQuestion[0]];
 
   switch (question.type) {
     case "checklist":
@@ -81,9 +79,19 @@ function getSubQuestionAnswerValidity(
         ? true
         : null;
     case "list":
-      return (ans as string[]).length > 0 ? true : null;
+      return (ans as string[]).length > 0 &&
+        (ans as string[]).join().replace(/\s/g, "") !== ""
+        ? true
+        : null;
+    case "number":
+      return ans === "" ? null : true;
+    case "choose":
+      console.log(ans);
+      return ans;
+    case "unit":
+      return (ans as string).split(" ")[0].trim() === "" ? null : ans;
     default:
-      return true;
+      return ans;
   }
 }
 
@@ -96,8 +104,11 @@ export function validateSwipe(
   const subQuestionIsNull = currentSubQuestion === null;
 
   const answer = subQuestionIsNull
-    ? state[currentForm][currentQuestion[0]].value
-    : getSubQuestionAnswerValidity(
+    ? getQuestionAnswerValidity(
+        current,
+        state[currentForm][currentQuestion[0]].value
+      )
+    : getQuestionAnswerValidity(
         current,
         state[currentForm][currentQuestion[0]].nested[currentSubQuestion[0]]
       );
@@ -113,10 +124,21 @@ export function validateSwipe(
     (subQuestionIsNull ||
       currentSubQuestion[0] ===
         forms[currentForm][currentQuestion[0]].nested.length - 1);
-  console.log(answer);
-  const cantGoForward =
-    ([null, "", []] as any[]).includes(answer) || isLastQuestion;
 
+  const isOptional = subQuestionIsNull
+    ? forms[currentForm][currentQuestion[0]].optional || false
+    : forms[currentForm][currentQuestion[0]].nested[currentSubQuestion[0]]
+        .optional || false;
+  const cantGoForward =
+    (([null, "", [], [""]] as any[]).includes(
+      Array.isArray(answer) &&
+        answer.length > 0 &&
+        typeof answer[0] === "string"
+        ? answer.join().replace(/\s/g, "")
+        : answer
+    ) &&
+      !isOptional) ||
+    isLastQuestion;
   return {
     backward: !cantGoBackwards,
     forward: !cantGoForward,

@@ -1,5 +1,5 @@
 import { IPageState } from ".";
-import { forms } from "./constants";
+import { forms } from "./form";
 import { IAdjacent, Forms, IConditions, CheckupState } from "./types";
 
 import { getCommandTree } from "./Maps";
@@ -13,21 +13,26 @@ const changesOnlySubQuestion = [
   "previous_child",
   "nothing",
 ];
-const formList = Object.keys(forms);
+const formList = Object.keys(forms) as (keyof Forms)[];
 type TNavigatorArgs = {
   current: IPageState;
   data: IAdjacent;
 };
 export class Navigator {
   conditions: IConditions;
-
+  currentFormIdx: number;
   args: TNavigatorArgs;
+  state: CheckupState;
   constructor(current: IPageState, state: CheckupState) {
     this.args = {
       current: { ...current },
       data: getNavigatorData(current, state),
     };
-    console.log(this.args.data);
+    this.state = state;
+    // console.log(this.args.data);
+    this.currentFormIdx = formList.findIndex(
+      (val) => val === this.args.current.currentForm
+    );
     this.initConditions(Object.freeze({ ...this.args }));
   }
 
@@ -60,6 +65,9 @@ export class Navigator {
               }
             : null,
       },
+      isFormDefining:
+        args.data.current.data.type === "confirm" &&
+        args.data.current.data.formDefining,
       nested: args.data.current.data.nested ? true : false,
       isBool:
         args.data.current.data.type === "confirm"
@@ -68,12 +76,22 @@ export class Navigator {
               negative: args.data.current.data.negative,
             }
           : null,
+      shouldJumpToFirstOfLastForm: false,
     };
 
     formConditions = {
       isLastForm: formList[formList.length - 1] === args.current.currentForm,
       isFirstForm: formList[0] === args.current.currentForm,
     };
+
+    if (
+      !formConditions.isFirstForm &&
+      forms[formList[this.currentFormIdx - 1]][0].formDefining
+    ) {
+      if (!this.state[formList[this.currentFormIdx - 1]][0].value) {
+        questionConditions.shouldJumpToFirstOfLastForm = true;
+      }
+    }
 
     this.conditions = {
       subQuestion: subQuestionConditions,
@@ -84,7 +102,7 @@ export class Navigator {
 
   getQuestion(which: Direction): IPageState | null {
     const tree = getCommandTree[which](this.conditions);
-    console.log(this.conditions);
+    // console.log(this.conditions);
     const command = getCommand(tree);
     let base: IPageState | null = null;
     if (changesOnlySubQuestion.includes(command)) {
@@ -94,9 +112,7 @@ export class Navigator {
         currentSubQuestion: null,
       };
     }
-    const currentFormIdx = formList.findIndex(
-      (val) => val === this.args.current.currentForm
-    );
+
     // console.dir({ command, base });
     // console.dir(this.conditions);
     switch (command) {
@@ -128,14 +144,15 @@ export class Navigator {
         };
       case "next_form":
         return {
-          currentForm: formList[currentFormIdx + 1],
+          currentForm: formList[this.currentFormIdx + 1],
           currentQuestion: [0, 1],
           currentSubQuestion: null,
         };
       case "previous_form":
+        const previousForm = forms[formList[this.currentFormIdx - 1]];
         return {
-          currentForm: formList[currentFormIdx - 1],
-          currentQuestion: [0, -1],
+          currentForm: formList[this.currentFormIdx - 1],
+          currentQuestion: [previousForm.length - 1, -1],
           currentSubQuestion: null,
         };
       case "next_question":
@@ -160,6 +177,12 @@ export class Navigator {
             this.args.data.previous.data.nested.length - 1,
             0,
           ],
+        };
+      case "first_of_previous_form":
+        return {
+          currentForm: formList[this.currentFormIdx - 1],
+          currentQuestion: [0, -1],
+          currentSubQuestion: null,
         };
       default:
         throw new Error("Invalid Command");
