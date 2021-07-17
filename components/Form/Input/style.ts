@@ -150,4 +150,13 @@ export const FormFieldContainer = styled.div<{ padding: number }>`
     transform: scaleX(1);
     transform-origin: left;
   }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 `;
