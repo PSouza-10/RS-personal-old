@@ -14,6 +14,7 @@ import { IPageState } from "./";
 import { IAnimationHandler } from "./AnimationHandler";
 import { Navigator } from "./Navigator";
 import { CheckOption } from "../../components/Form/CheckList";
+import axios from "axios";
 const getDataType = (qst: Question): TQuestionValue => {
   switch (qst.type) {
     case "checklist":
@@ -118,27 +119,19 @@ export function validateSwipe(
     currentQuestion[0] === 0 &&
     currentSubQuestion === null;
 
-  const isLastQuestion =
-    formNames[formNames.length - 1] === currentForm &&
-    currentQuestion[0] === forms[currentForm].length - 1 &&
-    (subQuestionIsNull ||
-      currentSubQuestion[0] ===
-        forms[currentForm][currentQuestion[0]].nested.length - 1);
-
   const isOptional = subQuestionIsNull
     ? forms[currentForm][currentQuestion[0]].optional || false
     : forms[currentForm][currentQuestion[0]].nested[currentSubQuestion[0]]
         .optional || false;
   const cantGoForward =
-    (([null, "", [], [""]] as any[]).includes(
+    ([null, "", [], [""]] as any[]).includes(
       Array.isArray(answer) &&
         answer.length > 0 &&
         typeof answer[0] === "string"
         ? answer.join().replace(/\s/g, "")
         : answer
-    ) &&
-      !isOptional) ||
-    isLastQuestion;
+    ) && !isOptional;
+
   return {
     backward: !cantGoBackwards,
     forward: !cantGoForward,
@@ -204,4 +197,33 @@ export function getNavigatorData(
   console.log(navigatorData);
 
   return navigatorData;
+}
+
+export function reloadFromLastSession<T = {}>(
+  localStorageKey: string,
+  defaultValue: T
+): T {
+  try {
+    const val = JSON.parse(localStorage.getItem(localStorageKey));
+    if (val !== null) {
+      return val;
+    } else return defaultValue;
+  } catch (e) {
+    return defaultValue;
+  }
+}
+
+export async function sendFormValues(values) {
+  try {
+    const { data } = await axios.post("/forms/anamnese", values);
+
+    return { msg: data.msg, error: false };
+  } catch (e) {
+    console.error(e);
+    if (e.response?.data?.error) {
+      return { msg: e.response.data.error.msg, error: true };
+    } else {
+      return { msg: "Ocorreu um erro :(", error: true };
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const CheckupContainer = styled.section`
   padding: 2rem 2rem;
@@ -85,5 +85,68 @@ export const DebugControllerContainer = styled.div`
     li ul {
       margin-left: 1.5rem;
     }
+  }
+`;
+export const IDFormContainer = styled.div`
+  padding: 1.2rem 1rem;
+  font-size: clamp(17px, 1.2rem, 22px);
+  /* padding-bottom: 4rem; */
+  & > form {
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .identification-radio {
+    border: none;
+    color: var(--fg);
+  }
+  .input-container,
+  .dateWrapper,
+  .timeWrapper {
+    margin: 0 0;
+  }
+  .input-container,
+  .dateWrapper,
+  .timeWrapper,
+  .identification-radio {
+    font-size: 1em;
+  }
+  .dateWrapper,
+  .timeWrapper {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+  }
+  ${({ theme: { breakpoints } }) => css`
+    @media (min-width: ${breakpoints.md}) {
+      padding-right: 6rem;
+      padding-left: 6rem;
+    }
+  `}
+`;
+
+export const FormFinished = styled.main`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5vh 0;
+  justify-content: center;
+  gap: 1.3rem;
+  height: calc(100vh - 50px);
+  color: var(--primary);
+  p {
+    max-width: min(1000px, 75vw);
+    color: var(--primary);
+    font-size: 1.4rem;
+    word-wrap: normal;
+    text-align: center;
+  }
+  svg {
+    height: 7rem;
+    width: 7rem;
+    fill: var(--primary);
+  }
+  .button {
+    font-size: 1.4rem;
   }
 `;

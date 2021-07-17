@@ -1,11 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdMail, IoMdPerson } from "react-icons/io";
-import {
-  MdAccessTime,
-  MdCake,
-  MdPhone,
-  MdSentimentSatisfied,
-} from "react-icons/md";
+import { MdAccessTime, MdCake, MdPhone } from "react-icons/md";
 import { AiOutlineIdcard } from "react-icons/ai";
 import { DateField, FormField } from "../../components";
 import { IDFormContainer } from "./style";
@@ -19,7 +14,8 @@ export interface IUserInfo {
   email: string;
   birthDate: Date | null;
   birthTime: string;
-
+  height: number;
+  weight: number;
   sex: "Masculino" | "Feminino" | null;
 }
 
@@ -27,14 +23,15 @@ interface IIdentification {
   setVal: (newVal: IUserInfo) => any;
   val: IUserInfo;
   setFormValid: (valid: boolean) => void;
+  parentIsValid: boolean;
 }
-
 export const IdentificationForm: React.FC<IIdentification> = ({
   setVal,
   val,
   setFormValid,
+  parentIsValid,
 }) => {
-  const [isValid, setValid] = useState({
+  const [isValid, setValid] = useState<Record<keyof IUserInfo, boolean>>({
     email: false,
     phone: false,
     firstName: false,
@@ -42,10 +39,12 @@ export const IdentificationForm: React.FC<IIdentification> = ({
     sex: false,
     birthDate: false,
     birthTime: false,
+    height: false,
+    weight: false,
   });
 
-  const handleChange = ({ target: { value, name } }, valid: boolean | null) => {
-    let newVal = value;
+  const handleChange = ({ target: { value, type = "text", name } }, valid) => {
+    let newVal = type === "number" ? Number(value) : value;
 
     setVal({
       ...val,
@@ -66,7 +65,15 @@ export const IdentificationForm: React.FC<IIdentification> = ({
 
     setFormValid(formIsValid);
   };
-
+  useEffect(() => {
+    if (Object.values(isValid).includes(!parentIsValid)) {
+      setValid(
+        Object.fromEntries(
+          Object.keys(isValid).map((key) => [key, parentIsValid])
+        ) as Record<keyof IUserInfo, boolean>
+      );
+    }
+  }, [parentIsValid]);
   return (
     <IDFormContainer>
       <h2 className="form-instructions" tabIndex={0}>
@@ -165,6 +172,22 @@ export const IdentificationForm: React.FC<IIdentification> = ({
           name="birthTime"
           icon={<MdAccessTime />}
           label="Horário de Nascimento (Opcional)"
+        />
+        <FormField
+          label="Altura (cm)"
+          name="height"
+          id="height"
+          type="number"
+          value={val.height}
+          onChange={(e) => handleChange(e, null)}
+        />
+        <FormField
+          label="Peso (kg)"
+          name="weight"
+          id="weight"
+          type="number"
+          value={val.weight}
+          onChange={(e) => handleChange(e, null)}
         />
         <RadioGroup
           name="sex"

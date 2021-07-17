@@ -2,7 +2,7 @@ import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CompositeRadioForm } from "./CompositeRadioForm";
-import { IdentificationForm, IUserInfo } from "./Identification";
+import { IdentificationForm, IUserInfo } from "../checkup/Identification";
 import { SameAnswerForm } from "./SameAnswerForm";
 import { Container, FormFinished } from "./style";
 import { Form, IForms, IFormVal, FormVal } from "./types";
@@ -28,16 +28,7 @@ const CompleteForm: React.FC<{
 
   const [formValues, setFormValues] = useState<IFormVal>({});
   const [currentPage, setPage] = useState(0);
-  const [userInfo, setUserInfo] = useState<IUserInfo>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    birthDate: null,
-    birthTime: "",
 
-    sex: null,
-  });
   const [formIsValid, setFormValid] = useState([
     ...Array(formComponents.length).fill(false),
   ]);

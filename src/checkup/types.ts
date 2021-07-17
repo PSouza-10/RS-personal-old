@@ -1,6 +1,7 @@
 import { CheckOption } from "../../components/Form/CheckList";
 import { ClosedQuestionOption } from "../../components/Form/ClosedQuestion";
 import { DropdownOption } from "../../components/Form/Dropdown";
+import { IUserInfo } from "./Identification";
 export type ConfirmQuestion = {
   type: "confirm";
   negative?: true;

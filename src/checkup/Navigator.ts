@@ -13,7 +13,7 @@ const changesOnlySubQuestion = [
   "previous_child",
   "nothing",
 ];
-const formList = Object.keys(forms) as (keyof Forms)[];
+export const formList = Object.keys(forms) as (keyof Forms)[];
 type TNavigatorArgs = {
   current: IPageState;
   data: IAdjacent;

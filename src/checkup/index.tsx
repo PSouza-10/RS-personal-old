@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import { forms } from "./form";
 import { CheckupContainer, CheckupFormContainer } from "./style";
-import { getInitialState, getNewCurrent, validateSwipe } from "./utils";
-import { Forms, TPaginate } from "./types";
+import {
+  getInitialState,
+  getNewCurrent,
+  reloadFromLastSession,
+  validateSwipe,
+} from "./utils";
+import { CheckupState, Forms, TPaginate } from "./types";
 import { AnimationHandler } from "./AnimationHandler";
 import { QuestionRenderer } from "./QuestionRenderer";
 import { DebugController } from "./DebugController";
+import { formList } from "./Navigator";
+import { IUserInfo } from "./Identification";
 
 export interface IPageState {
   currentForm: keyof Forms;
@@ -13,15 +20,21 @@ export interface IPageState {
   currentSubQuestion: [number, number] | null;
 }
 
-export const Controller: React.FC = () => {
-  const [current, setCurrent] = useState<IPageState>({
-    currentForm: "diseaseHistory",
-    currentQuestion: [0, 0],
-    currentSubQuestion: null,
-  });
+export const Controller: React.FC<{
+  formState: CheckupState;
+  setFormState: React.Dispatch<React.SetStateAction<CheckupState>>;
+  onSubmit: () => void;
+}> = ({ formState, setFormState, onSubmit }) => {
+  const [current, setCurrent] = useState<IPageState>(() =>
+    reloadFromLastSession<IPageState>("checkupPageState", {
+      currentForm: "diseaseHistory",
+      currentQuestion: [0, 0],
+      currentSubQuestion: null,
+    })
+  );
   const { currentForm, currentQuestion, currentSubQuestion } = current;
   const subQuestionIsNull = currentSubQuestion === null;
-  const [formState, setFormState] = useState(getInitialState(forms).state);
+
   const [canSwipe, setSwipe] = useState({
     backward: false,
     forward: false,
@@ -87,6 +100,17 @@ export const Controller: React.FC = () => {
   }
   const [visible, setVisible] = useState(false);
   const toggle = () => setVisible(!visible);
+
+  const isLastQuestion =
+    currentForm === formList[formList.length - 1] &&
+    currentQuestion[0] === forms[currentForm].length - 1 &&
+    (subQuestionIsNull || currentSubQuestion[0] === qstData.nested.length - 1);
+  useEffect(() => {
+    localStorage.setItem("checkupData", JSON.stringify(formState));
+  }, [formState]);
+  useEffect(() => {
+    localStorage.setItem("checkupPageState", JSON.stringify(current));
+  }, [formState]);
   return (
     <CheckupContainer>
       <CheckupFormContainer>
@@ -120,6 +144,7 @@ export const Controller: React.FC = () => {
               <h1>{qstData.nested[currentSubQuestion[0]].predicate}</h1>
             </>
           )}
+
           <QuestionRenderer
             question={{ state: qstState, data: qstData }}
             setValue={setQuestionState}
@@ -138,13 +163,23 @@ export const Controller: React.FC = () => {
           <button className="button" onClick={toggle}>
             Inspecionar
           </button>
-          <button
-            disabled={!canSwipe.forward}
-            className="button"
-            onClick={() => canSwipe.forward && paginate(1)}
-          >
-            Próxima
-          </button>
+          {isLastQuestion ? (
+            <button
+              disabled={!canSwipe.forward}
+              className="button"
+              onClick={onSubmit}
+            >
+              Finalizar
+            </button>
+          ) : (
+            <button
+              disabled={!canSwipe.forward}
+              className="button"
+              onClick={() => canSwipe.forward && paginate(1)}
+            >
+              Próxima
+            </button>
+          )}
         </span>
       </CheckupFormContainer>
       <DebugController
